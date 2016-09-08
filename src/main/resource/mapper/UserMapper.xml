@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hhzh.dao.UserDao">
+
+    <!--resultType是返回值类型，parameterType是传参类型，可以省略，mybatis能自动识别-->
+    <select id="queryUserById" resultType="User" parameterType="int">
+        SELECT id,name,age FROM user where id=#{id}
+    </select>
+
+    <!--自动生成主键Id，如果插入数据后不立即用到Id，可以不用配置-->
+    <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO USER (name,age) VALUES (#{name},#{age})
+    </insert>
+
+    <update id="updateUser">
+        UPDATE USER SET NAME = #{name},age=#{age} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteUserById">
+        DELETE FROM USER WHERE id=#{id}
+    </delete>
+
+</mapper>
