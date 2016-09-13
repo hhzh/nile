@@ -1,0 +1,12 @@
+bin
+target
+.classpath
+.project
+.settings
+*.iml
+.idea
+.metadata
+*.log
+PLTLOG
+logs
+work
