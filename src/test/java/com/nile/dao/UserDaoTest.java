@@ -17,7 +17,7 @@ public class UserDaoTest {
 
     @Test
     public void testSelectUserById() {
-        User user = userDao.selectUserById(1);
+        User user = userDao.selectUserById(1000);
         System.out.println(user.getId());
         System.out.println(user.getName());
         System.out.println(user.getPhone());

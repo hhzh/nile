@@ -4,8 +4,8 @@
 <mapper namespace="com.nile.dao.UserDao">
 
     <!--resultType是返回值类型，parameterType是传参类型，可以省略，mybatis能自动识别-->
-    <select id="selectUserById" resultType="User" parameterType="int">
-        SELECT id,name,age FROM user where id=#{id}
+    <select id="selectUserById" resultType="user" parameterType="int">
+        SELECT id,name,phone,create_time,update_time FROM user where id=#{id}
     </select>
 
     <!--自动生成主键Id，如果插入数据后不立即用到Id，可以不用配置-->
