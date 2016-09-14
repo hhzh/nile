@@ -10,11 +10,11 @@
 
     <!--自动生成主键Id，如果插入数据后不立即用到Id，可以不用配置-->
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO USER (name,age) VALUES (#{name},#{age})
+        INSERT INTO USER (name,phone) VALUES (#{name},#{phone})
     </insert>
 
     <update id="updateUser">
-        UPDATE USER SET NAME = #{name},age=#{age} WHERE id=#{id}
+        UPDATE USER SET NAME = #{name},phone=#{phone} WHERE id=#{id}
     </update>
 
     <delete id="deleteUserById">

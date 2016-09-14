@@ -29,21 +29,22 @@ public class UserDaoTest {
     public void testInsertUser() {
         User user=new User();
         user.setName("Smith");
-        user.setPhone("13812345678");
+        user.setPhone("13822345678");
         userDao.insertUser(user);
     }
 
     @Test
     public void testUpdateUser() {
         User user=new User();
-        user.setId(1);
-        user.setName("Tony");
-        user.setPhone("13912346789");
+        user.setId(1000);
+        user.setName("Tom");
+        user.setPhone("13912346780");
+        userDao.updateUser(user);
     }
 
     @Test
     public void testDeleteUserById() {
-        userDao.deleteUserById(1);
+        userDao.deleteUserById(1002);
     }
 
 }
