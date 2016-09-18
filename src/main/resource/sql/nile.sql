@@ -9,7 +9,7 @@ CREATE TABLE user(
 `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
 `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`),
-KEY `idx_user_phone`(`user_phone`)
+KEY `idx_user_phone`(`phone`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- 图书表
