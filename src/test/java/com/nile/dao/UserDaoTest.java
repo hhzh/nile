@@ -24,27 +24,27 @@ public class UserDaoTest {
         System.out.println(user.getCreateTime());
         System.out.println(user.getUpdateTime());
     }
-
-    @Test
-    public void testInsertUser() {
-        User user=new User();
-        user.setName("Smith");
-        user.setPhone("13822345678");
-        userDao.insertUser(user);
-    }
-
-    @Test
-    public void testUpdateUser() {
-        User user=new User();
-        user.setId(1000);
-        user.setName("Tom");
-        user.setPhone("13912346780");
-        userDao.updateUser(user);
-    }
-
-    @Test
-    public void testDeleteUserById() {
-        userDao.deleteUserById(1002);
-    }
+    //
+    //@Test
+    //public void testInsertUser() {
+    //    User user=new User();
+    //    user.setName("Smith");
+    //    user.setPhone("13822345678");
+    //    userDao.insertUser(user);
+    //}
+    //
+    //@Test
+    //public void testUpdateUser() {
+    //    User user=new User();
+    //    user.setId(1000);
+    //    user.setName("Tom");
+    //    user.setPhone("13912346780");
+    //    userDao.updateUser(user);
+    //}
+    //
+    //@Test
+    //public void testDeleteUserById() {
+    //    userDao.deleteUserById(1002);
+    //}
 
 }

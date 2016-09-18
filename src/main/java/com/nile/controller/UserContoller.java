@@ -6,7 +6,10 @@ import com.nile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/user")
@@ -17,9 +20,10 @@ public class UserContoller extends BaseController{
 
     @RequestMapping(value = "/select",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<String> selectUserById(int id) {
+    public ResponseEntity<String> selectUserById(@RequestParam("id") int id) {
         User user=userService.selectUserById(id);
-
+        System.out.println(user.getName());
+        //return new ResponseEntity<String>("abc", HttpStatus.OK);
         return response("user",user);
     }
 

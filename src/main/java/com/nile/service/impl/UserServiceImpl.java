@@ -3,7 +3,9 @@ package com.nile.service.impl;
 import com.nile.dao.UserDao;
 import com.nile.entity.User;
 import com.nile.service.UserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
