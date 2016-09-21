@@ -16,7 +16,9 @@
     <!-- 激活组件扫描功能,扫描aop的相关组件组件 -->
     <!--<context:component-scan base-package="com.yingjun.ssm.aop"/>-->
     <!-- 启动对@AspectJ注解的支持 -->
-    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+
+    <context:annotation-config></context:annotation-config>
 
     <!--简化配置:
     	1、自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
@@ -28,14 +30,14 @@
     	1、加入对静态资源的处理:js,css,gif,png
     	2、允许使用"/"做整体映射
     -->
-    <mvc:default-servlet-handler/>
+    <!--<mvc:default-servlet-handler/>-->
 
     <!--配置JSP　显示ViewResolver-->
-    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
-        <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
-        <!--<property name="suffix" value=".jsp"/>-->
-    <!--</bean>-->
+    <bean  id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 
     <!--扫描web相关的controller-->
     <context:component-scan base-package="com.nile.controller"/>
