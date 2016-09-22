@@ -24,7 +24,7 @@ public class UserContoller {
 //        System.out.println(user.getName());
         //return new ResponseEntity<String>("abc", HttpStatus.OK);
 
-        System.out.println("Hello. ");
+//        System.out.println("Hello. ");
 //        return response("user",user);
         return "age:" + age;
     }
@@ -75,7 +75,7 @@ public class UserContoller {
 
     @RequestMapping("/json")
     @ResponseBody
-    public String json(@RequestBody Book book) { // /object?admin.id=10&name=Jam&book.id=10 同级属性
+    public String json(@RequestBody Book book) {
         return book.toString();
     }
 
