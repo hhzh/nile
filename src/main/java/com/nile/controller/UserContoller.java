@@ -5,10 +5,7 @@ import com.nile.entity.Admin;
 import com.nile.entity.Book;
 import com.nile.entity.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
@@ -73,7 +70,7 @@ public class UserContoller {
 //        binder.setFieldDefaultPrefix("book.");
 //    }
 
-    @RequestMapping("/json")
+    @RequestMapping(value = "/json",method = RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public String json(@RequestBody Book book) {
         return book.toString();
