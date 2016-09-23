@@ -9,6 +9,8 @@ public class User {
     private Date createTime;
     private Date updateTime;
 
+    private Book book;
+
     public Integer getId() {
         return id;
     }
@@ -47,5 +49,25 @@ public class User {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", book=" + book +
+                '}';
     }
 }
