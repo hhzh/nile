@@ -29,7 +29,7 @@ public class UserContoller {
     @RequestMapping("/query")
     @ResponseBody
     public String query(Integer age) {
-        return "age:"+age;
+        return "age:" + age;
     }
 
     @RequestMapping("/array")
@@ -56,8 +56,8 @@ public class UserContoller {
 
     @RequestMapping("/object2")
     @ResponseBody
-    public String object2(Admin admin,Book book) { // /object?admin.id=10&name=Jam&book.id=10 同级属性
-        return admin.toString()+":"+book.toString();
+    public String object2(Admin admin, Book book) { // /object?admin.id=10&name=Jam&book.id=10 同级属性
+        return admin.toString() + ":" + book.toString();
     }
 
 //    @InitBinder("admin")
@@ -70,13 +70,11 @@ public class UserContoller {
 //        binder.setFieldDefaultPrefix("book.");
 //    }
 
-    @RequestMapping(value = "/json",method = RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/json1")
     @ResponseBody
-    public String json(@RequestBody Book book) {
+    public String json1(@RequestBody Book book) {
         return book.toString();
     }
-
-
 
 
 }
