@@ -5,7 +5,7 @@
 
     <select id="selectBookById" resultType="com.nile.entity.Book">
         SELECT bo.id,bo.name,bo.price,au.id,au.name,ca.id,ca.name,pu.id,pu.name
-        FROM book bo,author au,category ca,publisher pu
+        FROM book bo LEFT JOIN author au ON bo.author_id=au.id,category ca,publisher pu
 
     </select>
 </mapper>
