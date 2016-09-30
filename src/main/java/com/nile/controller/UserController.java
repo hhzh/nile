@@ -3,6 +3,8 @@ package com.nile.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.nile.entity.User;
+import com.nile.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
+
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping("/selectAll")
+    @ResponseBody
+    public ResponseEntity<String> selectAll() {
+        List<User> users=userService.selectAll();
+        return response(users);
+    }
 
     @RequestMapping(value = "/query")
     @ResponseBody
