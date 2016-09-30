@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nile.dao.BookDao">
+
+    <select id="selectBookById" resultType="com.nile.entity.Book">
+        SELECT bo.id,bo.name,bo.price,au.id,au.name,ca.id,ca.name,pu.id,pu.name
+        FROM book bo,author au,category ca,publisher pu
+
+    </select>
+</mapper>

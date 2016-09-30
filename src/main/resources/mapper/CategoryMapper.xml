@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nile.dao.CategoryDao">
+    <insert id="insertCategory">
+        insert into category (id,name) values (
+          <set>
+              <if test="id!=null">
+                  #{id},
+              </if>
+              <if test="name !=null">
+                  #{name}
+              </if>
+          </set>
+        );
+    </insert>
+    <update id="updateCategory">
+        UPDATE category set name=#{name} where id=#{id}
+    </update>
+    <delete id="deleteCategory">
+        DELETE FROM category where id=#{id}
+    </delete>
+
+    <select id="selectCategoryById" resultType="com.nile.entity.Category">
+        SELECT id,name FROM category WHERE id=#{id}
+    </select>
+    <select id="selectCategoryAll" resultType="com.nile.entity.Category">
+        SELECT id,name FROM category
+    </select>
+</mapper>
