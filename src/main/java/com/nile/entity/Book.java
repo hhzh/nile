@@ -1,15 +1,28 @@
 package com.nile.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Book {
 
     private Integer id;
     private String name;
     private BigDecimal price;
-    private Author author;
-    private Category category;
+    private List<Author> authors;
+    private List<Category> categories;
     private Publisher publisher;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", authors=" + authors +
+                ", categories=" + categories +
+                ", publisher=" + publisher +
+                '}';
+    }
 
     public Integer getId() {
         return id;
@@ -35,20 +48,20 @@ public class Book {
         this.price = price;
     }
 
-    public Author getAuthor() {
-        return author;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
-    public Category getCategory() {
-        return category;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public Publisher getPublisher() {
@@ -57,17 +70,5 @@ public class Book {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", author=" + author +
-                ", category=" + category +
-                ", publisher=" + publisher +
-                '}';
     }
 }
