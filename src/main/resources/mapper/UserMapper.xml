@@ -4,7 +4,7 @@
 <mapper namespace="com.nile.dao.UserDao">
 
     <!--resultType是返回值类型，parameterType是传参类型，可以省略，mybatis能自动识别-->
-    <select id="selectUserById" resultType="user" parameterType="int">
+    <select id="selectUserById" resultType="User" parameterType="int">
         SELECT id,name,phone,create_time,update_time FROM user where id=#{id}
     </select>
 

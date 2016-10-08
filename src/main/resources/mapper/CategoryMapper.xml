@@ -21,10 +21,10 @@
         DELETE FROM category where id=#{id}
     </delete>
 
-    <select id="selectCategoryById" resultType="com.nile.entity.Category">
+    <select id="selectCategoryById" resultType="Category">
         SELECT id,name FROM category WHERE id=#{id}
     </select>
-    <select id="selectCategoryAll" resultType="com.nile.entity.Category">
+    <select id="selectCategoryAll" resultType="Category">
         SELECT id,name FROM category
     </select>
 </mapper>
