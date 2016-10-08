@@ -2,10 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nile.dao.BookDao">
+    <insert id="insertBook">
+
+    </insert>
+    <update id="updateBook">
+        UPDATE book SET name=#{name},price=#{price} where id=#{id}
+    </update>
+    <delete id="deleteBook">
+        
+    </delete>
 
     <select id="selectBookById" resultType="com.nile.entity.Book">
         SELECT bo.id,bo.name,bo.price,au.id,au.name,ca.id,ca.name,pu.id,pu.name
-        FROM book bo LEFT JOIN author au ON bo.author_id=au.id,category ca,publisher pu
-
+        FROM book bo LEFT JOIN author au ON bo.author_id=au.id LEFT JOIN category ca ON bo.category_id=ca.id LEFT JOIN publisher pu ON bo.publisher_id=pu.id
+        WHERE bo.id=#{id}
+    </select>
+    <select id="selectBookAll" resultType="com.nile.entity.Book">
+        select id,name,price from book
     </select>
 </mapper>
