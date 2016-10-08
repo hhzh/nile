@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nile.dao.AuthorDao">
-    <insert id="insertAuthor">
+    <insert id="insertAuthor" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO author (id,name) VALUES (
                 #{id},#{name}
         )
@@ -19,5 +19,8 @@
     </select>
     <select id="selectAuthorAll" resultType="Author">
         SELECT id,name FROM author
+    </select>
+    <select id="selectAuthorByName" resultType="Author">
+        select id,name from author where name=#{name}
     </select>
 </mapper>

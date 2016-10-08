@@ -8,6 +8,8 @@ public interface AuthorDao {
 
     public Author selectAuthorById(Integer id);
 
+    public Author selectAuthorByName(String name);
+
     public List<Author> selectAuthorAll();
 
     public void insertAuthor(Author author);

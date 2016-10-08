@@ -3,6 +3,7 @@ package com.nile.dao;
 import com.nile.entity.Author;
 import com.nile.entity.Book;
 import com.nile.entity.Category;
+import com.nile.entity.Publisher;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,7 +48,14 @@ public class BookDaoTest extends BaseTest {
         authors.add(author);
         List<Category> categories = new ArrayList<>();
         Category category=new Category();
-        category.setName("");
+        category.setName("文学");
+        categories.add(category);
+        Publisher publisher=new Publisher();
+        publisher.setName("中国文学出版社");
+        book.setAuthors(authors);
+        book.setCategories(categories);
+        book.setPublisher(publisher);
+
     }
 
     @Test

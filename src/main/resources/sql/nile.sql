@@ -47,8 +47,26 @@ CONSTRAINT `fk_book_publisher` FOREIGN KEY (`publisher_id`) REFERENCES `publishe
 CONSTRAINT `fk_book_category` FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='图书表';
 
+-- 订单表
+CREATE TABLE order(
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '订单ID',
+  `name` VARCHAR(50) NOT NULL COMMENT '订单名',
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
+  `status` VARCHAR(10) NOT NULL COMMENT '订单状态',
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='订单表';
+
 
 insert into `user` (`id`, `name`, `phone`, `create_time`, `update_time`) values('1000','Tom','13912346780','2016-09-14 17:46:11','2016-09-14 17:46:11');
 insert into `user` (`id`, `name`, `phone`, `create_time`, `update_time`) values('1001','Lily','13912345678','2016-09-14 17:47:06','2016-09-14 17:47:06');
+
+INSERT INTO `author` VALUES (1,'周志明'),(2,'杨恩雄'),(3,'Tony'),(4,'罗贯中');
+
+INSERT INTO `category` VALUES (1,'计算机网络'),(2,'文学'),(3,'小说');
+
+INSERT INTO `publisher` VALUES (1,'机械工业出版社'),(2,'电子工业出版社'),(3,'清华大学出版社');
+
+INSERT INTO `book` VALUES (1,'深入理解java虚拟机',86.50,1,1,1),(2,'疯狂workflow讲义',73.00,2,1,1),(3,'三国演义',56.00,4,3,2),(4,'三国演义',56.00,4,3,3);
 
 
