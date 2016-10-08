@@ -21,10 +21,10 @@
         DELETE FROM publisher where id=#{id}
     </delete>
 
-    <select id="selectPublisherById" resultType="com.nile.entity.Publisher">
+    <select id="selectPublisherById" resultType="Publisher">
         SELECT id,name FROM publisher WHERE id=#{id}
     </select>
-    <select id="selectPublisherAll" resultType="com.nile.entity.Publisher">
+    <select id="selectPublisherAll" resultType="Publisher">
         SELECT id,name FROM publisher
     </select>
 </mapper>

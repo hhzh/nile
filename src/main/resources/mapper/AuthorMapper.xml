@@ -4,14 +4,7 @@
 <mapper namespace="com.nile.dao.AuthorDao">
     <insert id="insertAuthor">
         INSERT INTO author (id,name) VALUES (
-        <set>
-            <if test="id!=null">
-                #{id},
-            </if>
-            <if test="name!=null">
-                #{name}
-            </if>
-        </set>
+                #{id},#{name}
         )
     </insert>
     <update id="updateAuthor">
@@ -21,10 +14,10 @@
         DELETE FROM author where id=#{id}
     </delete>
 
-    <select id="selectAuthorById" resultType="com.nile.entity.Author">
+    <select id="selectAuthorById" resultType="Author">
         SELECT id,name FROM author WHERE id=#{id}
     </select>
-    <select id="selectAuthorAll" resultType="com.nile.entity.Author">
+    <select id="selectAuthorAll" resultType="Author">
         SELECT id,name FROM author
     </select>
 </mapper>

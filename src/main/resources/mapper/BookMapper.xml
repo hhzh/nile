@@ -2,8 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nile.dao.BookDao">
-    <insert id="insertBook">
 
+    <resultMap id="authorResult" type="Author">
+        <id column="author_id" property="id"/>
+        <result column="author_name" property="name"/>
+    </resultMap>
+
+    <resultMap id="categoryResult" type="Category">
+        <id column="category_id" property="id"/>
+        <result column="category_name" property="name"/>
+    </resultMap>
+
+    <resultMap id="publisherResult" type="Publisher">
+        <id column="publisher_id" property="id"/>
+        <result column="publisher_name" property="name"/>
+    </resultMap>
+
+    <resultMap id="bookResult" type="Book">
+        <id column="book_id" property="id"/>
+        <result column="book_name" property="name"/>
+        <result column="book_price" property="price"/>
+        <association property="publisher" resultMap="publisherResult"/>
+        <collection property="authors" ofType="Author" resultMap="authorResult"/>
+        <collection property="categories" ofType="Category" resultMap="categoryResult"/>
+    </resultMap>
+    
+    <sql id="authorColumns">
+        au.id as author_id,
+        au.name as author_name
+    </sql>
+
+    <sql id="categoryColumns">
+        ca.id as category_id,
+        ca.name as category_name
+    </sql>
+
+    <sql id="publisherColumns">
+        pu.id as publisher_id,
+        pu.name as publisher_name
+    </sql>
+
+    <sql id="bookColumns">
+        bo.id as book_id,
+        bo.name book_name,
+        bo.price as book_price
+    </sql>
+
+    <insert id="insertBook" parameterType="Book">
+        INSERT  INTO book(
+            id,name,price,author_id,category_id,publisher_id
+            VALUES (
+                #{id},#{name},#{price},#{author.id},#{category.id},#{publisher.id}
+            )
+        )
     </insert>
     <update id="updateBook">
         UPDATE book SET name=#{name},price=#{price} where id=#{id}
@@ -12,12 +63,28 @@
         
     </delete>
 
-    <select id="selectBookById" resultType="com.nile.entity.Book">
-        SELECT bo.id,bo.name,bo.price,au.id,au.name,ca.id,ca.name,pu.id,pu.name
-        FROM book bo LEFT JOIN author au ON bo.author_id=au.id LEFT JOIN category ca ON bo.category_id=ca.id LEFT JOIN publisher pu ON bo.publisher_id=pu.id
-        WHERE bo.id=#{id}
+    <select id="selectBookById" resultMap="bookResult">
+        SELECT
+            <include refid="bookColumns"/>,
+            <include refid="authorColumns"/>,
+            <include refid="categoryColumns"/>,
+            <include refid="publisherColumns"/>
+        FROM book bo
+            LEFT JOIN author au ON bo.author_id=au.id
+            LEFT JOIN category ca ON bo.category_id=ca.id
+            LEFT JOIN publisher pu ON bo.publisher_id=pu.id
+        WHERE
+            bo.id=#{id}
     </select>
-    <select id="selectBookAll" resultType="com.nile.entity.Book">
-        select id,name,price from book
+    <select id="selectBookAll" resultMap="bookResult">
+        select
+            <include refid="bookColumns"/>,
+            <include refid="authorColumns"/>,
+            <include refid="categoryColumns"/>,
+            <include refid="publisherColumns"/>
+        from book bo
+            LEFT JOIN author au ON bo.author_id=au.id
+            LEFT JOIN category ca ON bo.category_id=ca.id
+            LEFT JOIN publisher pu ON bo.publisher_id=pu.id
     </select>
 </mapper>
