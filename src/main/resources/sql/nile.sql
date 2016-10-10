@@ -16,15 +16,10 @@ KEY `idx_user_phone`(`phone`)
 CREATE TABLE author(
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '作者ID',
   `name` VARCHAR(50) NOT NULL COMMENT '姓名',
+  `profile` VARCHAR(200) COMMENT '简介',
   PRIMARY KEY (`id`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='作者表';
 
--- 出版社表
-CREATE TABLE publisher(
-  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '出版社ID',
-  `name` VARCHAR(50) NOT NULL COMMENT '出版社名',
-  PRIMARY KEY (`id`)
-)ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='出版社表';
 
 -- 图书种类表
 CREATE TABLE category(
@@ -38,14 +33,16 @@ CREATE TABLE book(
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '图书ID',
   `name` VARCHAR(50) NOT NULL COMMENT '书名',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
-  `author_id` BIGINT COMMENT '作者ID',
-  `publisher_id` BIGINT NOT NULL COMMENT '出版社ID',
-  `category_id` BIGINT NOT NULL COMMENT '图书种类ID',
-PRIMARY KEY (`id`),
-CONSTRAINT `fk_book_author` FOREIGN KEY (`author_id`) REFERENCES `author`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-CONSTRAINT `fk_book_publisher` FOREIGN KEY (`publisher_id`) REFERENCES `publisher`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-CONSTRAINT `fk_book_category` FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `publisher` BIGINT NOT NULL COMMENT '出版社',
+  PRIMARY KEY (`id`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='图书表';
+
+-- 图书作者中间表
+CREATE TABLE book_author (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '自增主键id',
+  `book_id` BIGINT NOT NULL COMMENT '图书id',
+  `author_id` BIGINT NOT NULL COMMENT '作者id'
+)ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='图书作者表';
 
 -- 订单表
 CREATE TABLE order(

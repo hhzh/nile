@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book selectBookById(Integer id) {
-        return null;
+        return bookDao.selectBookById(id);
     }
 
     @Override
