@@ -60,7 +60,7 @@
         UPDATE book SET name=#{name},price=#{price} where id=#{id}
     </update>
     <delete id="deleteBook">
-        
+
     </delete>
 
     <select id="selectBookById" resultMap="bookResult">
