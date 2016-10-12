@@ -1,9 +1,22 @@
 package com.nile.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Category {
 
     private Integer id;
     private String name;
+    private List<Book> books = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", books=" + books +
+                '}';
+    }
 
     public Integer getId() {
         return id;
@@ -21,11 +34,11 @@ public class Category {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }

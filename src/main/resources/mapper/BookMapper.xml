@@ -6,6 +6,7 @@
     <resultMap id="authorResult" type="Author">
         <id column="author_id" property="id"/>
         <result column="author_name" property="name"/>
+        <result column="author_profile" property="profile"/>
     </resultMap>
 
     <resultMap id="categoryResult" type="Category">
@@ -29,7 +30,8 @@
     
     <sql id="authorColumns">
         au.id as author_id,
-        au.name as author_name
+        au.name as author_name,
+        au.profile as author_profile
     </sql>
 
     <sql id="categoryColumns">

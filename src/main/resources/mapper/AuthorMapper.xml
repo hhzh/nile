@@ -3,24 +3,42 @@
 
 <mapper namespace="com.nile.dao.AuthorDao">
     <insert id="insertAuthor" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO author (id,name) VALUES (
-                #{id},#{name}
+        INSERT INTO author (id,name,profile) VALUES (
+                #{id},#{name},#{profile}
         )
     </insert>
     <update id="updateAuthor">
-        UPDATE author set name=#{name} where id=#{id}
+        UPDATE author
+        <set>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="profile!=null">
+                profile=#{profile}
+            </if>
+        </set>
+        where id=#{id}
+
     </update>
     <delete id="deleteAuthor">
         DELETE FROM author where id=#{id}
     </delete>
 
-    <select id="selectAuthorById" resultType="Author">
-        SELECT id,name FROM author WHERE id=#{id}
+    <select id="selectAuthorById" resultMap="com.nile.dao.BookDao.authorResult">
+        SELECT
+            <include refid="com.nile.dao.BookDao.authorColumns"/>
+        FROM author au
+        WHERE id=#{id}
     </select>
     <select id="selectAuthorAll" resultType="Author">
-        SELECT id,name FROM author
+        SELECT
+            <include refid="com.nile.dao.BookDao.authorColumns"/>
+        FROM author
     </select>
     <select id="selectAuthorByName" resultType="Author">
-        select id,name from author where name=#{name}
+        select
+            <include refid="com.nile.dao.BookDao.authorColumns"/>
+        from author au
+        where name=#{name}
     </select>
 </mapper>

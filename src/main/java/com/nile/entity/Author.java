@@ -1,20 +1,22 @@
 package com.nile.entity;
 
+import java.util.List;
+
 public class Author {
 
     private Integer id;
     private String name;
+    private String profile;
+    private List<Book> books;
 
-    public Author() {
-    }
-
-    public Author(String name) {
-        this.name = name;
-    }
-
-    public Author(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", profile='" + profile + '\'' +
+                ", books=" + books +
+                '}';
     }
 
     public Integer getId() {
@@ -33,11 +35,19 @@ public class Author {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
