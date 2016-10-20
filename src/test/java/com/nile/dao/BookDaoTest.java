@@ -55,6 +55,7 @@ public class BookDaoTest extends BaseTest {
         book.setAuthors(authors);
         book.setCategories(categories);
         book.setPublisher(publisher);
+        
     }
 
     @Test
