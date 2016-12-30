@@ -52,7 +52,7 @@
 
     <insert id="insertBook" parameterType="Book">
         INSERT  INTO book(
-            id,name,price,author_id,category_id,publisher_id
+            id,name,price,author_id,category_id,publisher_id)
             VALUES (
                 #{id},#{name},#{price},#{author.id},#{category.id},#{publisher.id}
             )
