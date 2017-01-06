@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nile.dao.AuthorDao">
+
+    <resultMap id="authorResult" type="Author">
+        <id column="author_id" property="id"/>
+        <result column="author_name" property="name"/>
+        <result column="author_profile" property="profile"/>
+    </resultMap>
+
+    <sql id="authorColumns">
+        au.id as author_id,
+        au.name as author_name,
+        au.profile as author_profile
+    </sql>
+
     <insert id="insertAuthor" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO author (id,name,profile) VALUES (
                 #{id},#{name},#{profile}

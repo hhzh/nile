@@ -1,5 +1,7 @@
 package com.nile.entity;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import java.util.List;
 
 public class Author {
@@ -8,16 +10,6 @@ public class Author {
     private String name;
     private String profile;
     private List<Book> books;
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", profile='" + profile + '\'' +
-                ", books=" + books +
-                '}';
-    }
 
     public Integer getId() {
         return id;
@@ -49,5 +41,10 @@ public class Author {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

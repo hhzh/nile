@@ -5,13 +5,13 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Book {
+public class BookFilter {
 
     private Integer id;
     private String name;
     private BigDecimal price;
-    private List<Author> authors;
-    private List<Category> categories;
+    private Author author;
+    private Category category;
     private Publisher publisher;
 
     public Integer getId() {
@@ -38,20 +38,20 @@ public class Book {
         this.price = price;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Publisher getPublisher() {

@@ -1,5 +1,7 @@
 package com.nile.entity;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,15 +10,6 @@ public class Category {
     private Integer id;
     private String name;
     private List<Book> books = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", books=" + books +
-                '}';
-    }
 
     public Integer getId() {
         return id;
@@ -40,5 +33,10 @@ public class Category {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

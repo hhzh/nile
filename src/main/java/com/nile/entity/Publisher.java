@@ -1,5 +1,7 @@
 package com.nile.entity;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 public class Publisher {
 
     private Integer id;
@@ -23,9 +25,6 @@ public class Publisher {
 
     @Override
     public String toString() {
-        return "Publisher{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return ReflectionToStringBuilder.toString(this);
     }
 }

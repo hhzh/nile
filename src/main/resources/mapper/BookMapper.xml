@@ -3,23 +3,7 @@
 
 <mapper namespace="com.nile.dao.BookDao">
 
-    <resultMap id="authorResult" type="Author">
-        <id column="author_id" property="id"/>
-        <result column="author_name" property="name"/>
-        <result column="author_profile" property="profile"/>
-    </resultMap>
-
-    <resultMap id="categoryResult" type="Category">
-        <id column="category_id" property="id"/>
-        <result column="category_name" property="name"/>
-    </resultMap>
-
-    <resultMap id="publisherResult" type="Publisher">
-        <id column="publisher_id" property="id"/>
-        <result column="publisher_name" property="name"/>
-    </resultMap>
-
-    <resultMap id="bookResult" type="Book">
+    <resultMap id="bookResult" type="Book" extends="com.nile.dao.AuthorDao.authorResult">
         <id column="book_id" property="id"/>
         <result column="book_name" property="name"/>
         <result column="book_price" property="price"/>
@@ -27,27 +11,20 @@
         <collection property="authors" ofType="Author" resultMap="authorResult"/>
         <collection property="categories" ofType="Category" resultMap="categoryResult"/>
     </resultMap>
-    
-    <sql id="authorColumns">
-        au.id as author_id,
-        au.name as author_name,
-        au.profile as author_profile
-    </sql>
-
-    <sql id="categoryColumns">
-        ca.id as category_id,
-        ca.name as category_name
-    </sql>
-
-    <sql id="publisherColumns">
-        pu.id as publisher_id,
-        pu.name as publisher_name
-    </sql>
 
     <sql id="bookColumns">
         bo.id as book_id,
-        bo.name book_name,
+        bo.name as book_name,
         bo.price as book_price
+    </sql>
+
+    <sql id="bookFilter">
+        <if test="id !=null">
+            id=#{id}
+        </if>
+        <if test="name!=null">
+            and name=#{name}
+        </if>
     </sql>
 
     <insert id="insertBook" parameterType="Book">
@@ -56,13 +33,12 @@
             VALUES (
                 #{id},#{name},#{price},#{author.id},#{category.id},#{publisher.id}
             )
-        )
     </insert>
     <update id="updateBook">
         UPDATE book SET name=#{name},price=#{price} where id=#{id}
     </update>
     <delete id="deleteBook">
-
+        DELETE FROM book WHERE id=#{id}
     </delete>
 
     <select id="selectBookById" resultMap="bookResult">
@@ -88,5 +64,19 @@
             LEFT JOIN author au ON bo.author_id=au.id
             LEFT JOIN category ca ON bo.category_id=ca.id
             LEFT JOIN publisher pu ON bo.publisher_id=pu.id
+    </select>
+    <select id="selectBookByFilter" resultMap="bookResult">
+        SELECT
+            <include refid="bookColumns"/>,
+            <include refid="authorColumns"/>,
+            <include refid="categoryColumns"/>,
+            <include refid="publisherColumns"/>
+        FROM book bo
+            LEFT JOIN author au ON bo.author_id=au.id
+            LEFT JOIN category ca ON bo.category_id=ca.id
+            LEFT JOIN publisher pu ON bo.publisher_id=pu.id
+        <where>
+            <include refid="bookFilter"/>
+        </where>
     </select>
 </mapper>

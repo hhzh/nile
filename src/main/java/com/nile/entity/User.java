@@ -1,5 +1,7 @@
 package com.nile.entity;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import java.util.Date;
 
 public class User {
@@ -52,12 +54,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
+        return ReflectionToStringBuilder.toString(this);
     }
 }
