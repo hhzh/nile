@@ -9,7 +9,6 @@ public class Category {
 
     private Integer id;
     private String name;
-    private List<Book> books = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -25,14 +24,6 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 
     @Override

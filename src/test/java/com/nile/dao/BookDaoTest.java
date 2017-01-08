@@ -18,15 +18,8 @@ public class BookDaoTest extends BaseTest {
 
     @Test
     public void selectBookById() throws Exception {
-        Book book = bookDao.selectBookById(3);
-        List<Author> authors = book.getAuthors();
-        System.out.println(book.toString());
-        if (authors != null && authors.size() > 0) {
-            for (Author author : authors) {
-                System.out.println(author.getId());
-                System.out.println(author.getName());
-            }
-        }
+        Book book = bookDao.selectBookById(1);
+        System.out.println(book);
     }
 
     @Test

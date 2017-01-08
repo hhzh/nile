@@ -47,11 +47,11 @@
     </sql>
 
     <insert id="insertBook" parameterType="Book">
-        INSERT  INTO book(
-            id,name,price,author_id,category_id,publisher_id)
-            VALUES (
-                #{id},#{name},#{price},#{author.id},#{category.id},#{publisher.id}
-            )
+        INSERT INTO book (
+            id, name, price, author_id, category_id, publisher_id)
+        VALUES (
+            #{id}, #{name}, #{price}, #{author.id}, #{category.id}, #{publisher.id}
+        )
     </insert>
     <update id="updateBook">
         UPDATE book SET name=#{name},price=#{price} where id=#{id}
@@ -67,9 +67,11 @@
             <include refid="categoryColumns"/>,
             <include refid="publisherColumns"/>
         FROM book bo
-            LEFT JOIN author au ON bo.author_id=au.id
-            LEFT JOIN category ca ON bo.category_id=ca.id
             LEFT JOIN publisher pu ON bo.publisher_id=pu.id
+            left join book_author ba on ba.book_id=bo.id
+            LEFT JOIN author au ON ba.author_id=au.id
+            left join book_category bc on bc.book_id=bo.id
+            LEFT JOIN category ca ON bc.category_id=ca.id
         WHERE
             bo.id=#{id}
     </select>
@@ -80,9 +82,11 @@
             <include refid="categoryColumns"/>,
             <include refid="publisherColumns"/>
         from book bo
-            LEFT JOIN author au ON bo.author_id=au.id
-            LEFT JOIN category ca ON bo.category_id=ca.id
             LEFT JOIN publisher pu ON bo.publisher_id=pu.id
+            left join book_author ba on ba.book_id=bo.id
+            LEFT JOIN author au ON ba.author_id=au.id
+            left join book_category bc on bc.book_id=bo.id
+            LEFT JOIN category ca ON bc.category_id=ca.id
     </select>
     <select id="selectBookByFilter" resultMap="bookResult">
         SELECT
@@ -91,9 +95,11 @@
             <include refid="categoryColumns"/>,
             <include refid="publisherColumns"/>
         FROM book bo
-            LEFT JOIN author au ON bo.author_id=au.id
-            LEFT JOIN category ca ON bo.category_id=ca.id
             LEFT JOIN publisher pu ON bo.publisher_id=pu.id
+            left join book_author ba on ba.book_id=bo.id
+            LEFT JOIN author au ON ba.author_id=au.id
+            left join book_category bc on bc.book_id=bo.id
+            LEFT JOIN category ca ON bc.category_id=ca.id
         <where>
             <include refid="bookFilter"/>
         </where>
