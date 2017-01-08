@@ -3,7 +3,13 @@
 
 <mapper namespace="com.nile.dao.BookDao">
 
-    <resultMap id="bookResult" type="Book" extends="com.nile.dao.AuthorDao.authorResult">
+    <resultMap id="authorResult" type="Author" extends="com.nile.dao.AuthorDao.authorResult"/>
+
+    <resultMap id="publisherResult" type="Publisher" extends="com.nile.dao.PublisherDao.publisherResult"/>
+
+    <resultMap id="categoryResult" type="Category" extends="com.nile.dao.CategoryDao.categoryResult"/>
+
+    <resultMap id="bookResult" type="Book">
         <id column="book_id" property="id"/>
         <result column="book_name" property="name"/>
         <result column="book_price" property="price"/>
@@ -11,6 +17,8 @@
         <collection property="authors" ofType="Author" resultMap="authorResult"/>
         <collection property="categories" ofType="Category" resultMap="categoryResult"/>
     </resultMap>
+
+    <sql id="authorColumns" 
 
     <sql id="bookColumns">
         bo.id as book_id,
