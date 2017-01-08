@@ -15,27 +15,37 @@
 
     <insert id="insertCategory">
         insert into category (id,name) values (
-          <set>
-              <if test="id!=null">
-                  #{id},
-              </if>
-              <if test="name !=null">
-                  #{name}
-              </if>
-          </set>
-        );
+        <set>
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="name !=null">
+                #{name}
+            </if>
+        </set>
+        )
     </insert>
     <update id="updateCategory">
-        UPDATE category set name=#{name} where id=#{id}
+        UPDATE category
+        SET name = #{name}
+        WHERE id = #{id}
     </update>
     <delete id="deleteCategory">
-        DELETE FROM category where id=#{id}
+        DELETE FROM category
+        WHERE id = #{id}
     </delete>
 
     <select id="selectCategoryById" resultType="Category">
-        SELECT id,name FROM category WHERE id=#{id}
+        SELECT
+            id,
+            name
+        FROM category
+        WHERE id = #{id}
     </select>
     <select id="selectCategoryAll" resultType="Category">
-        SELECT id,name FROM category
+        SELECT
+            id,
+            name
+        FROM category
     </select>
 </mapper>
