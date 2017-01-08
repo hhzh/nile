@@ -37,20 +37,20 @@
         DELETE FROM author where id=#{id}
     </delete>
 
-    <select id="selectAuthorById" resultMap="com.nile.dao.BookDao.authorResult">
+    <select id="selectAuthorById" resultMap="authorResult">
         SELECT
-            <include refid="com.nile.dao.BookDao.authorColumns"/>
+            <include refid="authorColumns"/>
         FROM author au
         WHERE id=#{id}
     </select>
     <select id="selectAuthorAll" resultType="Author">
         SELECT
-            <include refid="com.nile.dao.BookDao.authorColumns"/>
+            <include refid="authorColumns"/>
         FROM author
     </select>
     <select id="selectAuthorByName" resultType="Author">
         select
-            <include refid="com.nile.dao.BookDao.authorColumns"/>
+            <include refid="authorColumns"/>
         from author au
         where name=#{name}
     </select>
