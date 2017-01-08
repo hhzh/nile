@@ -2,6 +2,7 @@ package com.nile.dao;
 
 import com.nile.entity.Book;
 import com.nile.entity.SelectBookFilter;
+import com.nile.entity.UpdateBookFilter;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface BookDao {
 
     public void insertBatchBook(List<Book> books);
 
-    public void updateBook(Book book);
+    public void updateBook(UpdateBookFilter filter);
 
     public void deleteBook(Integer id);
 }

@@ -54,7 +54,9 @@
             <if test="price !=null">
                 price=#{price},
             </if>
-            <if test=""
+            <if test="authors != null and authors.size>0">
+                
+            </if>
         </set>
     </sql>
 
@@ -66,7 +68,7 @@
         )
     </insert>
 
-    <update id="updateBook">
+    <update id="updateBook" parameterType="UpdateBookFilter">
         UPDATE book bo
         INNER JOIN publisher pu ON pu.id=bo.publisher_id
         INNER JOIN book_author ba ON ba.book_id=bo.id
