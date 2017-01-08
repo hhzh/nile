@@ -13,12 +13,23 @@
         <id column="book_id" property="id"/>
         <result column="book_name" property="name"/>
         <result column="book_price" property="price"/>
+
         <association property="publisher" resultMap="publisherResult"/>
         <collection property="authors" ofType="Author" resultMap="authorResult"/>
         <collection property="categories" ofType="Category" resultMap="categoryResult"/>
     </resultMap>
 
-    <sql id="authorColumns" 
+    <sql id="authorColumns">
+        <include refid="com.nile.dao.AuthorDao.authorColumns"/>
+    </sql>
+
+    <sql id="categoryColumns">
+        <include refid="com.nile.dao.CategoryDao.categoryColumns"/>
+    </sql>
+
+    <sql id="publisherColumns">
+        <include refid="com.nile.dao.PublisherDao.publisherColumns"/>
+    </sql>
 
     <sql id="bookColumns">
         bo.id as book_id,
