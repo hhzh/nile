@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BookFilter {
+public class SelectBookFilter {
 
     private Integer id;
     private String name;

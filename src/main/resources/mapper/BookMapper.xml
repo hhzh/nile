@@ -46,6 +46,18 @@
         </if>
     </sql>
 
+    <sql id="updateBookFilter">
+        <set>
+            <if test="name !=null">
+                name=#{name},
+            </if>
+            <if test="price !=null">
+                price=#{price},
+            </if>
+            <if test=""
+        </set>
+    </sql>
+
     <insert id="insertBook" parameterType="Book">
         INSERT INTO book (
             id, name, price, author_id, category_id, publisher_id)
@@ -53,9 +65,18 @@
             #{id}, #{name}, #{price}, #{author.id}, #{category.id}, #{publisher.id}
         )
     </insert>
+
     <update id="updateBook">
-        UPDATE book SET name=#{name},price=#{price} where id=#{id}
+        UPDATE book bo
+        INNER JOIN publisher pu ON pu.id=bo.publisher_id
+        INNER JOIN book_author ba ON ba.book_id=bo.id
+        INNER JOIN book_category bc ON bc.book_id=bo.id
+        SET
+            <include refid="updateBookFilter"/>
+        where
+            id=#{id}
     </update>
+
     <delete id="deleteBook">
         DELETE FROM book WHERE id=#{id}
     </delete>
@@ -75,6 +96,7 @@
         WHERE
             bo.id=#{id}
     </select>
+
     <select id="selectBookAll" resultMap="bookResult">
         select
             <include refid="bookColumns"/>,
