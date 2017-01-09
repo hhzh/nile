@@ -1,23 +1,25 @@
 package com.nile.entity;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 public class UpdateBookFilter {
 
-    private Integer id;
+    private Integer bookAuthorId;
     private String name;
     private BigDecimal price;
-    private List<Author> authors;
-    private List<Category> categories;
+    private List<UpdateBookAuthorFilter> bookAuthorFilters;
+    private List<UpdateBookCategoryFilter> bookCategoryFilters;
     private Publisher publisher;
 
-    public Integer getId() {
-        return id;
+    public Integer getBookAuthorId() {
+        return bookAuthorId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBookAuthorId(Integer bookAuthorId) {
+        this.bookAuthorId = bookAuthorId;
     }
 
     public String getName() {
@@ -36,20 +38,20 @@ public class UpdateBookFilter {
         this.price = price;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
+    public List<UpdateBookAuthorFilter> getBookAuthorFilters() {
+        return bookAuthorFilters;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
+    public void setBookAuthorFilters(List<UpdateBookAuthorFilter> bookAuthorFilters) {
+        this.bookAuthorFilters = bookAuthorFilters;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<UpdateBookCategoryFilter> getBookCategoryFilters() {
+        return bookCategoryFilters;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setBookCategoryFilters(List<UpdateBookCategoryFilter> bookCategoryFilters) {
+        this.bookCategoryFilters = bookCategoryFilters;
     }
 
     public Publisher getPublisher() {
@@ -58,5 +60,10 @@ public class UpdateBookFilter {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

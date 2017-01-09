@@ -47,17 +47,22 @@
     </sql>
 
     <sql id="updateBookFilter">
-        <set>
-            <if test="name !=null">
-                name=#{name},
-            </if>
-            <if test="price !=null">
-                price=#{price},
-            </if>
-            <if test="authors != null and authors.size>0">
-                
-            </if>
-        </set>
+        <if test="name !=null">
+            name=#{name},
+        </if>
+        <if test="price !=null">
+            price=#{price},
+        </if>
+        <if test="bookAuthorFilters != null and bookAuthorFilters.size > 0">
+            <foreach collection="bookAuthorFilters" index="index" item="bookAuthorFilter">
+                <if test="bookAuthorFilter.oldBookId != null and bookAuthorFilter.newBookId != null">
+                    bookAuthorFilter.oldBookId = bookAuthorFilter.newBookId,
+                </if>
+                <if test="bookAuthorFilter.oldCategoryId != null and bookAuthorFilter.newCategoryId != null">
+                    bookAuthorFilter.oldCategoryId = bookAuthorFilter.newCategoryId,
+                </if>
+            </foreach>
+        </if>
     </sql>
 
     <insert id="insertBook" parameterType="Book">
@@ -73,10 +78,11 @@
         INNER JOIN publisher pu ON pu.id=bo.publisher_id
         INNER JOIN book_author ba ON ba.book_id=bo.id
         INNER JOIN book_category bc ON bc.book_id=bo.id
-        SET
+        <set>
             <include refid="updateBookFilter"/>
+        </set>
         where
-            id=#{id}
+            id=#{bookAuthorId}
     </update>
 
     <delete id="deleteBook">
