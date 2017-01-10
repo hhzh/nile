@@ -13,7 +13,7 @@
         pu.name as publisher_name
     </sql>
 
-    <insert id="insertPublisher">
+    <insert id="insertPublisher" useGeneratedKeys="true" keyProperty="id">
         insert into publisher (id,name) values (
           <set>
               <if test="id!=null">

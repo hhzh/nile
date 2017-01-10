@@ -6,6 +6,12 @@ import com.nile.dao.CategoryDao;
 import com.nile.dao.PublisherDao;
 import com.nile.entity.Author;
 import com.nile.entity.Book;
+import com.nile.entity.BookAuthor;
+import com.nile.entity.BookCategory;
+import com.nile.entity.Category;
+import com.nile.entity.UpdateBookAuthorFilter;
+import com.nile.entity.UpdateBookCategoryFilter;
+import com.nile.entity.UpdateBookFilter;
 import com.nile.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,25 +41,41 @@ public class BookServiceImpl implements BookService {
     @Override
     public void insertBook(Book book) {
         List<Author> authors=book.getAuthors();
-        for (Author author : authors) {
-            Author authorResult = authorDao.selectAuthorByName(author.getName());
-            if (authorResult == null) {
-                Author authorNew = new Author();
-                authorNew.setName(author.getName());
-                authorDao.insertAuthor(authorNew);
-            } else {
-
+        if (authors != null && authors.size() > 0) {
+            for (Author author : authors) {
+                bookDao.insertBookAuthor(new BookAuthor(book.getId(),author.getId()));
             }
         }
+        List<Category> categories = book.getCategories();
+        if (categories != null && categories.size() > 0) {
+            for (Category category : categories) {
+                bookDao.insertBookCategory(new BookCategory(book.getId(),category.getId()));
+            }
+        }
+
+        bookDao.insertBook(book);
     }
 
     @Override
-    public void updateBook(Book book) {
+    public void updateBook(UpdateBookFilter filter) {
+        List<UpdateBookAuthorFilter> bookAuthorFilters = filter.getBookAuthorFilters();
+        if (bookAuthorFilters != null && bookAuthorFilters.size() > 0) {
+            for (UpdateBookAuthorFilter bookAuthorFilter : bookAuthorFilters) {
+                bookDao.updateBookAuthor(bookAuthorFilter);
+            }
+        }
 
+        List<UpdateBookCategoryFilter> bookCategoryFilters = filter.getBookCategoryFilters();
+        if (bookCategoryFilters != null && bookCategoryFilters.size() > 0) {
+            for (UpdateBookCategoryFilter bookCategoryFilter : bookCategoryFilters) {
+                bookDao.updateBookCategory(bookCategoryFilter);
+            }
+        }
+        bookDao.updateBook(filter);
     }
 
     @Override
     public void deleteBook(Integer id) {
-
+        bookDao.deleteBook(id);
     }
 }

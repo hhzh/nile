@@ -53,36 +53,84 @@
         <if test="price !=null">
             price=#{price},
         </if>
-        <if test="bookAuthorFilters != null and bookAuthorFilters.size > 0">
-            <foreach collection="bookAuthorFilters" index="index" item="bookAuthorFilter">
-                <if test="bookAuthorFilter.oldBookId != null and bookAuthorFilter.newBookId != null">
-                    bookAuthorFilter.oldBookId = bookAuthorFilter.newBookId,
-                </if>
-                <if test="bookAuthorFilter.oldCategoryId != null and bookAuthorFilter.newCategoryId != null">
-                    bookAuthorFilter.oldCategoryId = bookAuthorFilter.newCategoryId,
-                </if>
-            </foreach>
+        <if test="publisher!=null">
+            bo.publisher_id=#{publisher.id}
         </if>
     </sql>
 
-    <insert id="insertBook" parameterType="Book">
+    <insert id="insertBook" parameterType="Book" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO book (
             id, name, price, author_id, category_id, publisher_id)
         VALUES (
             #{id}, #{name}, #{price}, #{author.id}, #{category.id}, #{publisher.id}
         )
     </insert>
+    <insert id="insertBatchBook" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        book(name, price, publisherId) VALUES
+        <foreach collection="books!=null and books.size>0">
+            name=#{name},price=#{price},publish_id=#{publisherId}
+        </foreach>
+    </insert>
+    <insert id="insertBookAuthor" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        book_author
+        (book_id, author_id) VALUES (#{bookId},#{authorId})
+    </insert>
+    <insert id="insertBookCategory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        book_category
+        (book_id, category_id) VALUES (#{bookId},#{categoryId})
+    </insert>
 
     <update id="updateBook" parameterType="UpdateBookFilter">
         UPDATE book bo
         INNER JOIN publisher pu ON pu.id=bo.publisher_id
-        INNER JOIN book_author ba ON ba.book_id=bo.id
-        INNER JOIN book_category bc ON bc.book_id=bo.id
         <set>
             <include refid="updateBookFilter"/>
         </set>
         where
             id=#{bookAuthorId}
+    </update>
+    <update id="updateBookAuthor" parameterType="UpdateBookAuthorFilter">
+        UPDATE
+            book_author
+        SET
+            <if test="oldBookId!=null and newBookId!=null">
+                book_id=#{newBookId},
+            </if>
+            <if test="oldAuthorId!=null and newAuthorId!=null">
+                author_id=#{newAuthorId},
+            </if>
+        <where>
+            id=#{id}
+            <if test="oldBookId!=null and newBookId!=null">
+                and book_id=#{oldBookId}
+            </if>
+            <if test="oldAuthorId!=null and newAuthorId!=null">
+                and author_id=#{oldAuthorId}
+            </if>
+        </where>
+    </update>
+    <update id="updateBookCategory" parameterType="UpdateBookCategoryFilter">
+        UPDATE
+        book_category
+        SET
+        <if test="oldBookId!=null and newBookId!=null">
+            book_id=#{newBookId},
+        </if>
+        <if test="oldCategoryId !=null and newCategoryId!=null">
+            category_id=#{newCatetoryId},
+        </if>
+        <where>
+            id=#{id}
+            <if test="oldBookId!=null and newBookId!=null">
+                and book_id=#{oldBookId}
+            </if>
+            <if test="oldCategoryId !=null and newCategoryId!=null">
+                and category_id=#{oldCatetoryId}
+            </if>
+        </where>
     </update>
 
     <delete id="deleteBook">

@@ -8,6 +8,21 @@ public class BookCategory {
     private Integer bookId;
     private Integer categoryId;
 
+    public BookCategory() {
+
+    }
+
+    public BookCategory(Integer bookId, Integer categoryId) {
+        this.bookId = bookId;
+        this.categoryId = categoryId;
+    }
+
+    public BookCategory(Integer id, Integer bookId, Integer categoryId) {
+        this.id = id;
+        this.bookId = bookId;
+        this.categoryId = categoryId;
+    }
+
     public Integer getId() {
         return id;
     }
