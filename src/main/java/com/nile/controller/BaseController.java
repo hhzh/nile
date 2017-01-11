@@ -59,7 +59,7 @@ public abstract class BaseController {
     protected ResponseEntity<String> response(Object resp) {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Content-Type", "application/json; charset=UTF-8");
-        String json = JSON.toJSONStringWithDateFormat(resp, "yyyy-MM-dd HH:mm:ss", SerializerFeature.DisableCircularReferenceDetect);
+        String json = JSON.toJSONStringWithDateFormat(resp, "yyyy-MM-dd HH:mm:ss", SerializerFeature.PrettyFormat);
         return new ResponseEntity<>(json, headers, HttpStatus.OK);
     }
 

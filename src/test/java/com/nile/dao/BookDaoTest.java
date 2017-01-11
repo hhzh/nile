@@ -1,5 +1,7 @@
 package com.nile.dao;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.nile.entity.Author;
 import com.nile.entity.Book;
 import com.nile.entity.Category;
@@ -19,7 +21,9 @@ public class BookDaoTest extends BaseTest {
     @Test
     public void selectBookById() throws Exception {
         Book book = bookDao.selectBookById(1);
+        String s = JSON.toJSONStringWithDateFormat(book, "YYYY-MM-DD hh:mm:ss", SerializerFeature.PrettyFormat);
         System.out.println(book);
+        System.out.println(s);
     }
 
     @Test

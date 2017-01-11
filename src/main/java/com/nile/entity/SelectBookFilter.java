@@ -10,9 +10,9 @@ public class SelectBookFilter {
     private Integer id;
     private String name;
     private BigDecimal price;
-    private Author author;
-    private Category category;
-    private Publisher publisher;
+    private String authorName;
+    private String categoryName;
+    private String publisherName;
 
     public Integer getId() {
         return id;
@@ -38,28 +38,28 @@ public class SelectBookFilter {
         this.price = price;
     }
 
-    public Author getAuthor() {
-        return author;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public Publisher getPublisher() {
-        return publisher;
+    public String getPublisherName() {
+        return publisherName;
     }
 
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
     }
 
     @Override

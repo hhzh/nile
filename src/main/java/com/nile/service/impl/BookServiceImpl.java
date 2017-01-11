@@ -9,14 +9,17 @@ import com.nile.entity.Book;
 import com.nile.entity.BookAuthor;
 import com.nile.entity.BookCategory;
 import com.nile.entity.Category;
+import com.nile.entity.SelectBookFilter;
 import com.nile.entity.UpdateBookAuthorFilter;
 import com.nile.entity.UpdateBookCategoryFilter;
 import com.nile.entity.UpdateBookFilter;
 import com.nile.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BookServiceImpl implements BookService {
 
     @Autowired
@@ -35,7 +38,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> selectBookAll() {
-        return null;
+        return bookDao.selectBookAll();
+    }
+
+    @Override
+    public List<Book> selectBookByFilter(SelectBookFilter filter) {
+        return bookDao.selectBookByFilter(filter);
     }
 
     @Override
@@ -76,6 +84,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(Integer id) {
-        bookDao.deleteBook(id);
+        bookDao.deleteBookById(id);
     }
 }

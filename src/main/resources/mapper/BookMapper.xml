@@ -39,19 +39,28 @@
 
     <sql id="bookFilter">
         <if test="id !=null">
-            id=#{id}
+            bo.id=#{id}
         </if>
         <if test="name!=null">
-            and name=#{name}
+            and bo.name like concat('%',#{name},'%')
+        </if>
+        <if test="authorName!=null">
+            and au.name like concat('%',#{authorName},'%')
+        </if>
+        <if test="categoryName!=null">
+            and ca.name like concat('%',#{categoryName},'%')
+        </if>
+        <if test="publisherName!=null">
+            and pu.name like concat('%',#{publisherName},'%')
         </if>
     </sql>
 
     <sql id="updateBookFilter">
         <if test="name !=null">
-            name=#{name},
+            bo.name=#{name},
         </if>
         <if test="price !=null">
-            price=#{price},
+            bo.price=#{price},
         </if>
         <if test="publisher!=null">
             bo.publisher_id=#{publisher.id}
@@ -90,7 +99,7 @@
             <include refid="updateBookFilter"/>
         </set>
         where
-            id=#{bookAuthorId}
+            bo.id=#{bookAuthorId}
     </update>
     <update id="updateBookAuthor" parameterType="UpdateBookAuthorFilter">
         UPDATE
@@ -133,7 +142,7 @@
         </where>
     </update>
 
-    <delete id="deleteBook">
+    <delete id="deleteBookById">
         DELETE FROM book WHERE id=#{id}
     </delete>
 
@@ -166,6 +175,7 @@
             left join book_category bc on bc.book_id=bo.id
             LEFT JOIN category ca ON bc.category_id=ca.id
     </select>
+
     <select id="selectBookByFilter" resultMap="bookResult">
         SELECT
             <include refid="bookColumns"/>,
