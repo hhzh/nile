@@ -56,14 +56,14 @@ public class BookController extends BaseController {
     @ResponseBody
     public ResponseEntity<String> updateBookByFilter(@RequestBody UpdateBookFilter filter) {
         bookService.updateBook(filter);
-        return response("success");
+        return response();
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> deleteBookById(Integer id) {
         bookService.deleteBook(id);
-        return response("success");
+        return response();
     }
 
 }
