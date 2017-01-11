@@ -33,4 +33,8 @@ public interface BookDao {
     public void updateBookCategory(UpdateBookCategoryFilter filter);
 
     public void deleteBookById(Integer id);
+
+    public void deleteBookAuthorByBookId(Integer id);
+
+    public void deleteBookCategoryByBookId(Integer id);
 }

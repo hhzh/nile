@@ -20,4 +20,8 @@ public interface BookService {
     public void updateBook(UpdateBookFilter filter);
 
     public void deleteBook(Integer id);
+
+    public void deleteBooAuthorByBookId(Integer id);
+
+    public void deleteBookCategoryByBookId(Integer id);
 }

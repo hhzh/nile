@@ -16,6 +16,7 @@ import com.nile.entity.UpdateBookFilter;
 import com.nile.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class BookServiceImpl implements BookService {
         bookDao.insertBook(book);
     }
 
+    @Transactional
     @Override
     public void updateBook(UpdateBookFilter filter) {
         List<UpdateBookAuthorFilter> bookAuthorFilters = filter.getBookAuthorFilters();
@@ -82,8 +84,21 @@ public class BookServiceImpl implements BookService {
         bookDao.updateBook(filter);
     }
 
+    @Transactional
     @Override
     public void deleteBook(Integer id) {
+        bookDao.deleteBookAuthorByBookId(id);
+        bookDao.deleteBookCategoryByBookId(id);
         bookDao.deleteBookById(id);
+    }
+
+    @Override
+    public void deleteBooAuthorByBookId(Integer id) {
+        bookDao.deleteBookAuthorByBookId(id);
+    }
+
+    @Override
+    public void deleteBookCategoryByBookId(Integer id) {
+        bookDao.deleteBookCategoryByBookId(id);
     }
 }

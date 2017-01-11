@@ -145,6 +145,15 @@
     <delete id="deleteBookById">
         DELETE FROM book WHERE id=#{id}
     </delete>
+    <delete id="deleteBookAuthorByBookId">
+        DELETE FROM
+        book_author
+        WHERE book_id=#{id}
+    </delete>
+    <delete id="deleteBookCategoryByBookId">
+        DELETE FROM book_category
+        WHERE book_id=#{id}
+    </delete>
 
     <select id="selectBookById" resultMap="bookResult">
         SELECT
