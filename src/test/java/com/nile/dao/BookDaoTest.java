@@ -61,7 +61,7 @@ public class BookDaoTest extends BaseTest {
 
     @Test
     public void deleteBook() throws Exception {
-
+        bookDao.deleteBookById(1);
     }
 
 }
