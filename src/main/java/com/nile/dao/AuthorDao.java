@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface AuthorDao {
 
-    public Author selectAuthorById(Integer id);
+    Author selectAuthorById(Integer id);
 
-    public Author selectAuthorByName(String name);
+    Author selectAuthorByName(String name);
 
-    public List<Author> selectAuthorAll();
+    List<Author> selectAuthorAll();
 
-    public void insertAuthor(Author author);
+    void insertAuthor(Author author);
 
-    public void updateAuthor(Author author);
+    void updateAuthor(Author author);
 
-    public void deleteAuthor(Integer id);
+    void deleteAuthor(Integer id);
 }
