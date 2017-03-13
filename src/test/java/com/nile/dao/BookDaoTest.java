@@ -28,7 +28,7 @@ public class BookDaoTest extends BaseTest {
 
     @Test
     public void selectBookAll() throws Exception {
-        List<Book> books=bookDao.selectBookAll();
+        List<Book> books = bookDao.selectBookAll();
         for (Book book : books) {
             System.out.println(book.toString());
         }
@@ -36,18 +36,18 @@ public class BookDaoTest extends BaseTest {
 
     @Test
     public void insertBook() throws Exception {
-        Book book=new Book();
+        Book book = new Book();
         book.setName("红楼梦");
         book.setPrice(new BigDecimal(89));
         List<Author> authors = new ArrayList<>();
-        Author author=new Author();
+        Author author = new Author();
         author.setName("曹雪芹");
         authors.add(author);
         List<Category> categories = new ArrayList<>();
-        Category category=new Category();
+        Category category = new Category();
         category.setName("文学");
         categories.add(category);
-        Publisher publisher=new Publisher();
+        Publisher publisher = new Publisher();
         publisher.setName("中国文学出版社");
         book.setAuthors(authors);
         book.setCategories(categories);

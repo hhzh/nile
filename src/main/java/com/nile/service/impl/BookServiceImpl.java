@@ -49,16 +49,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void insertBook(Book book) {
-        List<Author> authors=book.getAuthors();
+        List<Author> authors = book.getAuthors();
         if (authors != null && authors.size() > 0) {
             for (Author author : authors) {
-                bookDao.insertBookAuthor(new BookAuthor(book.getId(),author.getId()));
+                bookDao.insertBookAuthor(new BookAuthor(book.getId(), author.getId()));
             }
         }
         List<Category> categories = book.getCategories();
         if (categories != null && categories.size() > 0) {
             for (Category category : categories) {
-                bookDao.insertBookCategory(new BookCategory(book.getId(),category.getId()));
+                bookDao.insertBookCategory(new BookCategory(book.getId(), category.getId()));
             }
         }
 
