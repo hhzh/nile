@@ -1,11 +1,8 @@
 package com.nile.dao;
 
 import com.alibaba.fastjson.JSON;
-import com.nile.entity.Publisher;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.Assert.*;
 
 public class PublisherDaoTest extends BaseTest{
 

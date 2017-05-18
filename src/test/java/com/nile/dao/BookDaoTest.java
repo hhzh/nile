@@ -2,10 +2,6 @@ package com.nile.dao;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.nile.entity.Author;
-import com.nile.entity.Book;
-import com.nile.entity.Category;
-import com.nile.entity.Publisher;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
