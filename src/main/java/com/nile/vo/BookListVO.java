@@ -1,10 +1,7 @@
-package com.nile.vo;
+package com.nile.VO;
 
 import java.math.BigDecimal;
 
-/**
- * Created by geely
- */
 public class BookListVO {
 
     private Integer id;

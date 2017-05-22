@@ -1,10 +1,7 @@
-package com.nile.vo;
+package com.nile.VO;
 
 import java.math.BigDecimal;
 
-/**
- * Created by geely
- */
 public class CartProductVO {
 
 //结合了产品和购物车的一个抽象对象

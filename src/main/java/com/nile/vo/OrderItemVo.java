@@ -1,4 +1,4 @@
-package com.nile.vo;
+package com.nile.VO;
 
 import java.math.BigDecimal;
 

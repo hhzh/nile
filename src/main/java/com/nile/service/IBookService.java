@@ -3,7 +3,7 @@ package com.nile.service;
 import com.github.pagehelper.PageInfo;
 import com.nile.common.ServerResponse;
 import com.nile.pojo.Book;
-import com.nile.vo.BookDetailVO;
+import com.nile.VO.BookDetailVO;
 
 public interface IBookService {
 
@@ -20,7 +20,6 @@ public interface IBookService {
     ServerResponse<BookDetailVO> getBookDetail(Integer BookId);
 
     ServerResponse<PageInfo> getBookByKeywordCategory(String keyword, Integer categoryId, int pageNum, int pageSize, String orderBy);
-
 
 
 }

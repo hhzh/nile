@@ -1,11 +1,8 @@
-package com.nile.vo;
+package com.nile.VO;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Created by geely
- */
 public class CartVO {
 
     private List<CartProductVO> cartProductVOList;

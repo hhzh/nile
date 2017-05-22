@@ -2,7 +2,7 @@ package com.nile.service;
 
 import com.github.pagehelper.PageInfo;
 import com.nile.common.ServerResponse;
-import com.nile.vo.OrderVO;
+import com.nile.VO.OrderVO;
 
 import java.util.Map;
 

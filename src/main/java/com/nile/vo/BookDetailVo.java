@@ -1,10 +1,10 @@
-package com.nile.vo;
+package com.nile.VO;
 
 import java.math.BigDecimal;
 
 public class BookDetailVO {
 
-    private Integer  id;
+    private Integer id;
     private Integer categoryId;
     private String name;
     private String subtitle;
