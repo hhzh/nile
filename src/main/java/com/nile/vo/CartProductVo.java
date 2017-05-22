@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by geely
  */
-public class CartProductVo {
+public class CartProductVO {
 
 //结合了产品和购物车的一个抽象对象
 

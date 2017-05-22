@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by geely
  */
-public class OrderItemVo {
+public class OrderItemVO {
 
     private Long orderNo;
 

@@ -3,7 +3,7 @@ package com.nile.vo;
 /**
  * Created by geely
  */
-public class ShippingVo {
+public class ShippingVO {
     private String receiverName;
 
     private String receiverPhone;

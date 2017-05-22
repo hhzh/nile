@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by geely
  */
-public class OrderVo {
+public class OrderVO {
 
     private Long orderNo;
 
@@ -33,13 +33,13 @@ public class OrderVo {
     private String createTime;
 
     //订单的明细
-    private List<OrderItemVo> orderItemVoList;
+    private List<OrderItemVO> orderItemVOList;
 
     private String imageHost;
     private Integer shippingId;
     private String receiverName;
 
-    private ShippingVo shippingVo;
+    private ShippingVO shippingVO;
 
     public Long getOrderNo() {
         return orderNo;
@@ -137,12 +137,12 @@ public class OrderVo {
         this.createTime = createTime;
     }
 
-    public List<OrderItemVo> getOrderItemVoList() {
-        return orderItemVoList;
+    public List<OrderItemVO> getOrderItemVOList() {
+        return orderItemVOList;
     }
 
-    public void setOrderItemVoList(List<OrderItemVo> orderItemVoList) {
-        this.orderItemVoList = orderItemVoList;
+    public void setOrderItemVOList(List<OrderItemVO> orderItemVOList) {
+        this.orderItemVOList = orderItemVOList;
     }
 
     public String getImageHost() {
@@ -169,11 +169,11 @@ public class OrderVo {
         this.receiverName = receiverName;
     }
 
-    public ShippingVo getShippingVo() {
-        return shippingVo;
+    public ShippingVO getShippingVO() {
+        return shippingVO;
     }
 
-    public void setShippingVo(ShippingVo shippingVo) {
-        this.shippingVo = shippingVo;
+    public void setShippingVO(ShippingVO shippingVO) {
+        this.shippingVO = shippingVO;
     }
 }

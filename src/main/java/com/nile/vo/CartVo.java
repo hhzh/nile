@@ -6,19 +6,19 @@ import java.util.List;
 /**
  * Created by geely
  */
-public class CartVo {
+public class CartVO {
 
-    private List<CartProductVo> cartProductVoList;
+    private List<CartProductVO> cartProductVOList;
     private BigDecimal cartTotalPrice;
     private Boolean allChecked;//是否已经都勾选
     private String imageHost;
 
-    public List<CartProductVo> getCartProductVoList() {
-        return cartProductVoList;
+    public List<CartProductVO> getCartProductVOList() {
+        return cartProductVOList;
     }
 
-    public void setCartProductVoList(List<CartProductVo> cartProductVoList) {
-        this.cartProductVoList = cartProductVoList;
+    public void setCartProductVOList(List<CartProductVO> cartProductVOList) {
+        this.cartProductVOList = cartProductVOList;
     }
 
     public BigDecimal getCartTotalPrice() {

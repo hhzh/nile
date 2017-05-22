@@ -6,17 +6,17 @@ import java.util.List;
 /**
  * Created by geely
  */
-public class OrderProductVo {
-    private List<OrderItemVo> orderItemVoList;
+public class OrderProductVO {
+    private List<OrderItemVO> orderItemVOList;
     private BigDecimal productTotalPrice;
     private String imageHost;
 
-    public List<OrderItemVo> getOrderItemVoList() {
-        return orderItemVoList;
+    public List<OrderItemVO> getOrderItemVoList() {
+        return orderItemVOList;
     }
 
-    public void setOrderItemVoList(List<OrderItemVo> orderItemVoList) {
-        this.orderItemVoList = orderItemVoList;
+    public void setOrderItemVoList(List<OrderItemVO> orderItemVOList) {
+        this.orderItemVOList = orderItemVOList;
     }
 
     public BigDecimal getProductTotalPrice() {

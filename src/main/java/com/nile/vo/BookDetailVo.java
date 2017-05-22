@@ -2,7 +2,7 @@ package com.nile.vo;
 
 import java.math.BigDecimal;
 
-public class BookDetailVo {
+public class BookDetailVO {
 
     private Integer  id;
     private Integer categoryId;
