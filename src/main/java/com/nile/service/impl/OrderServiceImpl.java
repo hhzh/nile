@@ -29,10 +29,10 @@ import com.nile.util.BigDecimalUtil;
 import com.nile.util.DateTimeUtil;
 import com.nile.util.FTPUtil;
 import com.nile.util.PropertiesUtil;
-import com.nile.vo.OrderItemVo;
-import com.nile.vo.OrderProductVo;
-import com.nile.vo.OrderVo;
-import com.nile.vo.ShippingVo;
+import com.nile.vo.OrderItemVO;
+import com.nile.vo.OrderProductVO;
+import com.nile.vo.OrderVO;
+import com.nile.vo.ShippingVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -48,10 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * Created by geely
- */
-@Service("iOrderService")
+@Service("orderService")
 public class OrderServiceImpl implements IOrderService {
 
 
@@ -120,78 +117,78 @@ public class OrderServiceImpl implements IOrderService {
 
         //返回给前端数据
 
-        OrderVo orderVo = assembleOrderVo(order,orderItemList);
-        return ServerResponse.createBySuccess(orderVo);
+        OrderVO orderVO = assembleOrderVo(order,orderItemList);
+        return ServerResponse.createBySuccess(orderVO);
     }
 
 
 
-    private OrderVo assembleOrderVo(Order order,List<OrderItem> orderItemList){
-        OrderVo orderVo = new OrderVo();
-        orderVo.setOrderNo(order.getOrderNo());
-        orderVo.setPayment(order.getPayment());
-        orderVo.setPaymentType(order.getPaymentType());
-        orderVo.setPaymentTypeDesc(Const.PaymentTypeEnum.codeOf(order.getPaymentType()).getValue());
+    private OrderVO assembleOrderVo(Order order, List<OrderItem> orderItemList){
+        OrderVO orderVO = new OrderVO();
+        orderVO.setOrderNo(order.getOrderNo());
+        orderVO.setPayment(order.getPayment());
+        orderVO.setPaymentType(order.getPaymentType());
+        orderVO.setPaymentTypeDesc(Const.PaymentTypeEnum.codeOf(order.getPaymentType()).getValue());
 
-        orderVo.setPostage(order.getPostage());
-        orderVo.setStatus(order.getStatus());
-        orderVo.setStatusDesc(Const.OrderStatusEnum.codeOf(order.getStatus()).getValue());
+        orderVO.setPostage(order.getPostage());
+        orderVO.setStatus(order.getStatus());
+        orderVO.setStatusDesc(Const.OrderStatusEnum.codeOf(order.getStatus()).getValue());
 
-        orderVo.setShippingId(order.getShippingId());
+        orderVO.setShippingId(order.getShippingId());
         Shipping shipping = shippingMapper.selectByPrimaryKey(order.getShippingId());
         if(shipping != null){
-            orderVo.setReceiverName(shipping.getReceiverName());
-            orderVo.setShippingVo(assembleShippingVo(shipping));
+            orderVO.setReceiverName(shipping.getReceiverName());
+            orderVO.setShippingVO(assembleShippingVo(shipping));
         }
 
-        orderVo.setPaymentTime(DateTimeUtil.dateToStr(order.getPaymentTime()));
-        orderVo.setSendTime(DateTimeUtil.dateToStr(order.getSendTime()));
-        orderVo.setEndTime(DateTimeUtil.dateToStr(order.getEndTime()));
-        orderVo.setCreateTime(DateTimeUtil.dateToStr(order.getCreateTime()));
-        orderVo.setCloseTime(DateTimeUtil.dateToStr(order.getCloseTime()));
+        orderVO.setPaymentTime(DateTimeUtil.dateToStr(order.getPaymentTime()));
+        orderVO.setSendTime(DateTimeUtil.dateToStr(order.getSendTime()));
+        orderVO.setEndTime(DateTimeUtil.dateToStr(order.getEndTime()));
+        orderVO.setCreateTime(DateTimeUtil.dateToStr(order.getCreateTime()));
+        orderVO.setCloseTime(DateTimeUtil.dateToStr(order.getCloseTime()));
 
 
-        orderVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
+        orderVO.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
 
 
-        List<OrderItemVo> orderItemVoList = Lists.newArrayList();
+        List<OrderItemVO> orderItemVOList = Lists.newArrayList();
 
         for(OrderItem orderItem : orderItemList){
-            OrderItemVo orderItemVo = assembleOrderItemVo(orderItem);
-            orderItemVoList.add(orderItemVo);
+            OrderItemVO orderItemVO = assembleOrderItemVo(orderItem);
+            orderItemVOList.add(orderItemVO);
         }
-        orderVo.setOrderItemVoList(orderItemVoList);
-        return orderVo;
+        orderVO.setOrderItemVOList(orderItemVOList);
+        return orderVO;
     }
 
 
-    private OrderItemVo assembleOrderItemVo(OrderItem orderItem){
-        OrderItemVo orderItemVo = new OrderItemVo();
-        orderItemVo.setOrderNo(orderItem.getOrderNo());
-        orderItemVo.setProductId(orderItem.getProductId());
-        orderItemVo.setProductName(orderItem.getProductName());
-        orderItemVo.setProductImage(orderItem.getProductImage());
-        orderItemVo.setCurrentUnitPrice(orderItem.getCurrentUnitPrice());
-        orderItemVo.setQuantity(orderItem.getQuantity());
-        orderItemVo.setTotalPrice(orderItem.getTotalPrice());
+    private OrderItemVO assembleOrderItemVo(OrderItem orderItem){
+        OrderItemVO orderItemVO = new OrderItemVO();
+        orderItemVO.setOrderNo(orderItem.getOrderNo());
+        orderItemVO.setProductId(orderItem.getProductId());
+        orderItemVO.setProductName(orderItem.getProductName());
+        orderItemVO.setProductImage(orderItem.getProductImage());
+        orderItemVO.setCurrentUnitPrice(orderItem.getCurrentUnitPrice());
+        orderItemVO.setQuantity(orderItem.getQuantity());
+        orderItemVO.setTotalPrice(orderItem.getTotalPrice());
 
-        orderItemVo.setCreateTime(DateTimeUtil.dateToStr(orderItem.getCreateTime()));
-        return orderItemVo;
+        orderItemVO.setCreateTime(DateTimeUtil.dateToStr(orderItem.getCreateTime()));
+        return orderItemVO;
     }
 
 
 
-    private ShippingVo assembleShippingVo(Shipping shipping){
-        ShippingVo shippingVo = new ShippingVo();
-        shippingVo.setReceiverName(shipping.getReceiverName());
-        shippingVo.setReceiverAddress(shipping.getReceiverAddress());
-        shippingVo.setReceiverProvince(shipping.getReceiverProvince());
-        shippingVo.setReceiverCity(shipping.getReceiverCity());
-        shippingVo.setReceiverDistrict(shipping.getReceiverDistrict());
-        shippingVo.setReceiverMobile(shipping.getReceiverMobile());
-        shippingVo.setReceiverZip(shipping.getReceiverZip());
-        shippingVo.setReceiverPhone(shippingVo.getReceiverPhone());
-        return shippingVo;
+    private ShippingVO assembleShippingVo(Shipping shipping){
+        ShippingVO shippingVO = new ShippingVO();
+        shippingVO.setReceiverName(shipping.getReceiverName());
+        shippingVO.setReceiverAddress(shipping.getReceiverAddress());
+        shippingVO.setReceiverProvince(shipping.getReceiverProvince());
+        shippingVO.setReceiverCity(shipping.getReceiverCity());
+        shippingVO.setReceiverDistrict(shipping.getReceiverDistrict());
+        shippingVO.setReceiverMobile(shipping.getReceiverMobile());
+        shippingVO.setReceiverZip(shipping.getReceiverZip());
+        shippingVO.setReceiverPhone(shippingVO.getReceiverPhone());
+        return shippingVO;
     }
 
     private void cleanCart(List<Cart> cartList){
@@ -305,7 +302,7 @@ public class OrderServiceImpl implements IOrderService {
 
 
     public ServerResponse getOrderCartProduct(Integer userId){
-        OrderProductVo orderProductVo = new OrderProductVo();
+        OrderProductVO orderProductVO = new OrderProductVO();
         //从购物车中获取数据
 
         List<Cart> cartList = cartMapper.selectCheckedCartByUserId(userId);
@@ -315,26 +312,26 @@ public class OrderServiceImpl implements IOrderService {
         }
         List<OrderItem> orderItemList =( List<OrderItem> ) serverResponse.getData();
 
-        List<OrderItemVo> orderItemVoList = Lists.newArrayList();
+        List<OrderItemVO> orderItemVOList = Lists.newArrayList();
 
         BigDecimal payment = new BigDecimal("0");
         for(OrderItem orderItem : orderItemList){
             payment = BigDecimalUtil.add(payment.doubleValue(),orderItem.getTotalPrice().doubleValue());
-            orderItemVoList.add(assembleOrderItemVo(orderItem));
+            orderItemVOList.add(assembleOrderItemVo(orderItem));
         }
-        orderProductVo.setProductTotalPrice(payment);
-        orderProductVo.setOrderItemVoList(orderItemVoList);
-        orderProductVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
-        return ServerResponse.createBySuccess(orderProductVo);
+        orderProductVO.setProductTotalPrice(payment);
+        orderProductVO.setOrderItemVoList(orderItemVOList);
+        orderProductVO.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
+        return ServerResponse.createBySuccess(orderProductVO);
     }
 
 
-    public ServerResponse<OrderVo> getOrderDetail(Integer userId,Long orderNo){
+    public ServerResponse<OrderVO> getOrderDetail(Integer userId, Long orderNo){
         Order order = orderMapper.selectByUserIdAndOrderNo(userId,orderNo);
         if(order != null){
             List<OrderItem> orderItemList = orderItemMapper.getByOrderNoUserId(orderNo,userId);
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
-            return ServerResponse.createBySuccess(orderVo);
+            OrderVO orderVO = assembleOrderVo(order,orderItemList);
+            return ServerResponse.createBySuccess(orderVO);
         }
         return  ServerResponse.createByErrorMessage("没有找到该订单");
     }
@@ -343,15 +340,15 @@ public class OrderServiceImpl implements IOrderService {
     public ServerResponse<PageInfo> getOrderList(Integer userId,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectByUserId(userId);
-        List<OrderVo> orderVoList = assembleOrderVoList(orderList,userId);
+        List<OrderVO> orderVOList = assembleOrderVoList(orderList,userId);
         PageInfo pageResult = new PageInfo(orderList);
-        pageResult.setList(orderVoList);
+        pageResult.setList(orderVOList);
         return ServerResponse.createBySuccess(pageResult);
     }
 
 
-    private List<OrderVo> assembleOrderVoList(List<Order> orderList,Integer userId){
-        List<OrderVo> orderVoList = Lists.newArrayList();
+    private List<OrderVO> assembleOrderVoList(List<Order> orderList, Integer userId){
+        List<OrderVO> orderVOList = Lists.newArrayList();
         for(Order order : orderList){
             List<OrderItem>  orderItemList = Lists.newArrayList();
             if(userId == null){
@@ -360,10 +357,10 @@ public class OrderServiceImpl implements IOrderService {
             }else{
                 orderItemList = orderItemMapper.getByOrderNoUserId(order.getOrderNo(),userId);
             }
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
-            orderVoList.add(orderVo);
+            OrderVO orderVO = assembleOrderVo(order,orderItemList);
+            orderVOList.add(orderVO);
         }
-        return orderVoList;
+        return orderVOList;
     }
 
 
@@ -582,19 +579,19 @@ public class OrderServiceImpl implements IOrderService {
     public ServerResponse<PageInfo> manageList(int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<Order> orderList = orderMapper.selectAllOrder();
-        List<OrderVo> orderVoList = this.assembleOrderVoList(orderList,null);
+        List<OrderVO> orderVOList = this.assembleOrderVoList(orderList,null);
         PageInfo pageResult = new PageInfo(orderList);
-        pageResult.setList(orderVoList);
+        pageResult.setList(orderVOList);
         return ServerResponse.createBySuccess(pageResult);
     }
 
 
-    public ServerResponse<OrderVo> manageDetail(Long orderNo){
+    public ServerResponse<OrderVO> manageDetail(Long orderNo){
         Order order = orderMapper.selectByOrderNo(orderNo);
         if(order != null){
             List<OrderItem> orderItemList = orderItemMapper.getByOrderNo(orderNo);
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
-            return ServerResponse.createBySuccess(orderVo);
+            OrderVO orderVO = assembleOrderVo(order,orderItemList);
+            return ServerResponse.createBySuccess(orderVO);
         }
         return ServerResponse.createByErrorMessage("订单不存在");
     }
@@ -606,10 +603,10 @@ public class OrderServiceImpl implements IOrderService {
         Order order = orderMapper.selectByOrderNo(orderNo);
         if(order != null){
             List<OrderItem> orderItemList = orderItemMapper.getByOrderNo(orderNo);
-            OrderVo orderVo = assembleOrderVo(order,orderItemList);
+            OrderVO orderVO = assembleOrderVo(order,orderItemList);
 
             PageInfo pageResult = new PageInfo(Lists.newArrayList(order));
-            pageResult.setList(Lists.newArrayList(orderVo));
+            pageResult.setList(Lists.newArrayList(orderVO));
             return ServerResponse.createBySuccess(pageResult);
         }
         return ServerResponse.createByErrorMessage("订单不存在");

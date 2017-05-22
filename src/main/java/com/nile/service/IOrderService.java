@@ -2,7 +2,7 @@ package com.nile.service;
 
 import com.github.pagehelper.PageInfo;
 import com.nile.common.ServerResponse;
-import com.nile.vo.OrderVo;
+import com.nile.vo.OrderVO;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public interface IOrderService {
 
     ServerResponse getOrderCartProduct(Integer userId);
 
-    ServerResponse<OrderVo> getOrderDetail(Integer userId, Long orderNo);
+    ServerResponse<OrderVO> getOrderDetail(Integer userId, Long orderNo);
 
     ServerResponse<PageInfo> getOrderList(Integer userId, int pageNum, int pageSize);
 
@@ -29,7 +29,7 @@ public interface IOrderService {
     //backend
     ServerResponse<PageInfo> manageList(int pageNum, int pageSize);
 
-    ServerResponse<OrderVo> manageDetail(Long orderNo);
+    ServerResponse<OrderVO> manageDetail(Long orderNo);
 
     ServerResponse<PageInfo> manageSearch(Long orderNo, int pageNum, int pageSize);
 
