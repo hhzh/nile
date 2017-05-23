@@ -15,16 +15,20 @@ public class AuthorMapperTest extends BaseTest{
 
     @Test
     public void deleteByPrimaryKey() throws Exception {
-
+        int i = authorMapper.deleteByPrimaryKey(4);
+        System.out.println("i="+i);
     }
 
     @Test
     public void insert() throws Exception {
-        authorMapper.insert(new Author(40, "杰伦", "一个作家", new Date(), new Date()));
     }
 
     @Test
     public void insertSelective() throws Exception {
+        Author author = new Author();
+        author.setName("莫言");
+        author.setProfile("诺贝尔文学奖获得者");
+        authorMapper.insert(author);
     }
 
     @Test
@@ -35,6 +39,11 @@ public class AuthorMapperTest extends BaseTest{
 
     @Test
     public void updateByPrimaryKeySelective() throws Exception {
+        Author author = new Author();
+        author.setId(5);
+        author.setProfile("中国著名作家");
+        int i = authorMapper.updateByPrimaryKeySelective(author);
+        System.out.println("i="+i);
     }
 
     @Test
