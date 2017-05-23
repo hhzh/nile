@@ -146,7 +146,7 @@ public class Main {
         String appAuthToken = "应用授权令牌";//根据真实值填写
 
         AlipayHeartbeatSynRequestBuilder builder = new AlipayHeartbeatSynRequestBuilder()
-            .setAppAuthToken(appAuthToken).setProduct(Product.FP).setType(Type.CR)
+            .setAppAuthToken(appAuthToken).setBook(Book.FP).setType(Type.CR)
             .setEquipmentId("cr1000001").setEquipmentStatus(EquipStatus.NORMAL)
             .setTime(Utils.toDate(new Date())).setStoreId("store10001").setMac("0a:00:27:00:00:00")
             .setNetworkType("LAN").setProviderId("2088911212323549") // 设置系统商pid
@@ -178,7 +178,7 @@ public class Main {
         //        extendInfo.put("TERMINAL_ID", "1234");
 
         AlipayHeartbeatSynRequestBuilder builder = new AlipayHeartbeatSynRequestBuilder()
-            .setProduct(Product.FP)
+            .setBook(Book.FP)
             .setType(Type.SOFT_POS)
             .setEquipmentId("soft100001")
             .setEquipmentStatus(EquipStatus.NORMAL)

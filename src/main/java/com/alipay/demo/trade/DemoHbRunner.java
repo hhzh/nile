@@ -42,7 +42,7 @@ public class DemoHbRunner extends AbsHbRunner {
         //        exceptionInfoList.add(ExceptionInfo.HE_OTHER);
 
         AlipayHeartbeatSynRequestBuilder builder = new AlipayHeartbeatSynRequestBuilder()
-            .setProduct(Product.FP).setType(Type.CR).setEquipmentId("cr1000001")
+            .setBook(Book.FP).setType(Type.CR).setEquipmentId("cr1000001")
             .setEquipmentStatus(EquipStatus.NORMAL).setTime(Utils.toDate(new Date()))
             .setStoreId("store10001").setMac("0a:00:27:00:00:00").setNetworkType("LAN")
             .setProviderId("2088911212323549") // 设置系统商pid

@@ -30,7 +30,7 @@ import com.nile.util.DateTimeUtil;
 import com.nile.util.FTPUtil;
 import com.nile.util.PropertiesUtil;
 import com.nile.VO.OrderItemVO;
-import com.nile.VO.OrderProductVO;
+import com.nile.VO.OrderBookVO;
 import com.nile.VO.OrderVO;
 import com.nile.VO.ShippingVO;
 import org.apache.commons.collections.CollectionUtils;
@@ -78,7 +78,7 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private CartMapper cartMapper;
     @Autowired
-    private ProductMapper productMapper;
+    private BookMapper bookMapper;
     @Autowired
     private ShippingMapper shippingMapper;
 
@@ -112,7 +112,7 @@ public class OrderServiceImpl implements IOrderService {
         orderItemMapper.batchInsert(orderItemList);
 
         //生成成功,我们要减少我们产品的库存
-        this.reduceProductStock(orderItemList);
+        this.reduceBookStock(orderItemList);
         //清空一下购物车
         this.cleanCart(cartList);
 
@@ -165,9 +165,9 @@ public class OrderServiceImpl implements IOrderService {
     private OrderItemVO assembleOrderItemVo(OrderItem orderItem) {
         OrderItemVO orderItemVO = new OrderItemVO();
         orderItemVO.setOrderNo(orderItem.getOrderNo());
-        orderItemVO.setProductId(orderItem.getProductId());
-        orderItemVO.setProductName(orderItem.getProductName());
-        orderItemVO.setProductImage(orderItem.getProductImage());
+        orderItemVO.setBookId(orderItem.getBookId());
+        orderItemVO.setBookName(orderItem.getBookName());
+        orderItemVO.setBookImage(orderItem.getBookImage());
         orderItemVO.setCurrentUnitPrice(orderItem.getCurrentUnitPrice());
         orderItemVO.setQuantity(orderItem.getQuantity());
         orderItemVO.setTotalPrice(orderItem.getTotalPrice());
@@ -197,11 +197,11 @@ public class OrderServiceImpl implements IOrderService {
     }
 
 
-    private void reduceProductStock(List<OrderItem> orderItemList) {
+    private void reduceBookStock(List<OrderItem> orderItemList) {
         for (OrderItem orderItem : orderItemList) {
-            Product product = productMapper.selectByPrimaryKey(orderItem.getProductId());
-            product.setStock(product.getStock() - orderItem.getQuantity());
-            productMapper.updateByPrimaryKeySelective(product);
+            Book book = bookMapper.selectByPrimaryKey(orderItem.getBookId());
+            book.setStock(book.getStock() - orderItem.getQuantity());
+            bookMapper.updateByPrimaryKeySelective(book);
         }
     }
 
@@ -250,23 +250,23 @@ public class OrderServiceImpl implements IOrderService {
         //校验购物车的数据,包括产品的状态和数量
         for (Cart cartItem : cartList) {
             OrderItem orderItem = new OrderItem();
-            Product product = productMapper.selectByPrimaryKey(cartItem.getProductId());
-            if (Const.ProductStatusEnum.ON_SALE.getCode() != product.getStatus()) {
-                return ServerResponse.createByErrorMessage("产品" + product.getName() + "不是在线售卖状态");
+            Book book = bookMapper.selectByPrimaryKey(cartItem.getBookId());
+            if (Const.BookStatusEnum.ON_SALE.getCode() != book.getStatus()) {
+                return ServerResponse.createByErrorMessage("产品" + book.getName() + "不是在线售卖状态");
             }
 
             //校验库存
-            if (cartItem.getQuantity() > product.getStock()) {
-                return ServerResponse.createByErrorMessage("产品" + product.getName() + "库存不足");
+            if (cartItem.getQuantity() > book.getStock()) {
+                return ServerResponse.createByErrorMessage("产品" + book.getName() + "库存不足");
             }
 
             orderItem.setUserId(userId);
-            orderItem.setProductId(product.getId());
-            orderItem.setProductName(product.getName());
-            orderItem.setProductImage(product.getMainImage());
-            orderItem.setCurrentUnitPrice(product.getPrice());
+            orderItem.setBookId(book.getId());
+            orderItem.setBookName(book.getName());
+            orderItem.setBookImage(book.getMainImage());
+            orderItem.setCurrentUnitPrice(book.getPrice());
             orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setTotalPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(), cartItem.getQuantity()));
+            orderItem.setTotalPrice(BigDecimalUtil.mul(book.getPrice().doubleValue(), cartItem.getQuantity()));
             orderItemList.add(orderItem);
         }
         return ServerResponse.createBySuccess(orderItemList);
@@ -293,8 +293,8 @@ public class OrderServiceImpl implements IOrderService {
     }
 
 
-    public ServerResponse getOrderCartProduct(Integer userId) {
-        OrderProductVO orderProductVO = new OrderProductVO();
+    public ServerResponse getOrderCartBook(Integer userId) {
+        OrderBookVO orderBookVO = new OrderBookVO();
         //从购物车中获取数据
 
         List<Cart> cartList = cartMapper.selectCheckedCartByUserId(userId);
@@ -311,10 +311,10 @@ public class OrderServiceImpl implements IOrderService {
             payment = BigDecimalUtil.add(payment.doubleValue(), orderItem.getTotalPrice().doubleValue());
             orderItemVOList.add(assembleOrderItemVo(orderItem));
         }
-        orderProductVO.setProductTotalPrice(payment);
-        orderProductVO.setOrderItemVoList(orderItemVOList);
-        orderProductVO.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
-        return ServerResponse.createBySuccess(orderProductVO);
+        orderBookVO.setBookTotalPrice(payment);
+        orderBookVO.setOrderItemVoList(orderItemVOList);
+        orderBookVO.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
+        return ServerResponse.createBySuccess(orderBookVO);
     }
 
 
@@ -411,7 +411,7 @@ public class OrderServiceImpl implements IOrderService {
 
         List<OrderItem> orderItemList = orderItemMapper.getByOrderNoUserId(orderNo, userId);
         for (OrderItem orderItem : orderItemList) {
-            GoodsDetail goods = GoodsDetail.newInstance(orderItem.getProductId().toString(), orderItem.getProductName(),
+            GoodsDetail goods = GoodsDetail.newInstance(orderItem.getBookId().toString(), orderItem.getBookName(),
                     BigDecimalUtil.mul(orderItem.getCurrentUnitPrice().doubleValue(), new Double(100).doubleValue()).longValue(),
                     orderItem.getQuantity());
             goodsDetailList.add(goods);

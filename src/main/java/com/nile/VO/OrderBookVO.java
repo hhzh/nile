@@ -3,12 +3,9 @@ package com.nile.VO;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Created by geely
- */
-public class OrderProductVO {
+public class OrderBookVO {
     private List<OrderItemVO> orderItemVOList;
-    private BigDecimal productTotalPrice;
+    private BigDecimal bookTotalPrice;
     private String imageHost;
 
     public List<OrderItemVO> getOrderItemVoList() {
@@ -19,12 +16,12 @@ public class OrderProductVO {
         this.orderItemVOList = orderItemVOList;
     }
 
-    public BigDecimal getProductTotalPrice() {
-        return productTotalPrice;
+    public BigDecimal getBookTotalPrice() {
+        return bookTotalPrice;
     }
 
-    public void setProductTotalPrice(BigDecimal productTotalPrice) {
-        this.productTotalPrice = productTotalPrice;
+    public void setBookTotalPrice(BigDecimal bookTotalPrice) {
+        this.bookTotalPrice = bookTotalPrice;
     }
 
     public String getImageHost() {

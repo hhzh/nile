@@ -40,6 +40,7 @@ CREATE TABLE category(
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图书种类ID',
   `parent_id` int(11) DEFAULT NULL COMMENT '父类别id当id=0时说明是根节点,一级类别',
   `name` VARCHAR(50) NOT NULL COMMENT '图书种类名',
+  `status` tinyint(1) DEFAULT '1' COMMENT '类别状态1-正常,2-已废弃',
   `sort_order` int(4) DEFAULT NULL COMMENT '排序编号,同类展示顺序,数值相等则自然排序',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',

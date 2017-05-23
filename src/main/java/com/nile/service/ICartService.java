@@ -6,15 +6,15 @@ import com.nile.VO.CartVO;
 
 public interface ICartService {
 
-    ServerResponse<CartVO> add(Integer userId, Integer productId, Integer count);
+    ServerResponse<CartVO> add(Integer userId, Integer bookId, Integer count);
 
-    ServerResponse<CartVO> update(Integer userId, Integer productId, Integer count);
+    ServerResponse<CartVO> update(Integer userId, Integer bookId, Integer count);
 
-    ServerResponse<CartVO> deleteProduct(Integer userId, String productIds);
+    ServerResponse<CartVO> deleteBook(Integer userId, String bookIds);
 
     ServerResponse<CartVO> list(Integer userId);
 
-    ServerResponse<CartVO> selectOrUnSelect(Integer userId, Integer productId, Integer checked);
+    ServerResponse<CartVO> selectOrUnSelect(Integer userId, Integer bookId, Integer checked);
 
-    ServerResponse<Integer> getCartProductCount(Integer userId);
+    ServerResponse<Integer> getCartBookCount(Integer userId);
 }

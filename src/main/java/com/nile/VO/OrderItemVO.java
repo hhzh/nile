@@ -2,17 +2,14 @@ package com.nile.VO;
 
 import java.math.BigDecimal;
 
-/**
- * Created by geely
- */
 public class OrderItemVO {
 
     private Long orderNo;
 
-    private Integer productId;
+    private Integer bookId;
 
-    private String productName;
-    private String productImage;
+    private String bookName;
+    private String bookImage;
 
     private BigDecimal currentUnitPrice;
 
@@ -30,28 +27,28 @@ public class OrderItemVO {
         this.orderNo = orderNo;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public String getBookImage() {
+        return bookImage;
     }
 
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
+    public void setBookImage(String bookImage) {
+        this.bookImage = bookImage;
     }
 
     public BigDecimal getCurrentUnitPrice() {

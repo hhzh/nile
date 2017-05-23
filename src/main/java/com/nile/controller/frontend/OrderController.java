@@ -1,6 +1,9 @@
 package com.nile.controller.frontend;
 
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.demo.trade.config.Configs;
 import com.google.common.collect.Maps;
 import com.nile.common.Const;
 import com.nile.common.ResponseCode;
@@ -52,14 +55,14 @@ public class OrderController {
     }
 
 
-    @RequestMapping("get_order_cart_product.do")
+    @RequestMapping("get_order_cart_book.do")
     @ResponseBody
-    public ServerResponse getOrderCartProduct(HttpSession session) {
+    public ServerResponse getOrderCartBook(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iOrderService.getOrderCartProduct(user.getId());
+        return iOrderService.getOrderCartBook(user.getId());
     }
 
 

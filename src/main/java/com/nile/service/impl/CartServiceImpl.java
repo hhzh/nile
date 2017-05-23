@@ -5,11 +5,14 @@ import com.google.common.collect.Lists;
 import com.nile.common.Const;
 import com.nile.common.ResponseCode;
 import com.nile.common.ServerResponse;
+import com.nile.dao.BookMapper;
 import com.nile.dao.CartMapper;
+import com.nile.pojo.Book;
+import com.nile.pojo.Cart;
 import com.nile.service.ICartService;
 import com.nile.util.BigDecimalUtil;
 import com.nile.util.PropertiesUtil;
-import com.nile.VO.CartProductVO;
+import com.nile.VO.CartBookVO;
 import com.nile.VO.CartVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +27,21 @@ public class CartServiceImpl implements ICartService {
     @Autowired
     private CartMapper cartMapper;
     @Autowired
-    private ProductMapper productMapper;
+    private BookMapper bookMapper;
 
-    public ServerResponse<CartVO> add(Integer userId, Integer productId, Integer count) {
-        if (productId == null || count == null) {
+    public ServerResponse<CartVO> add(Integer userId, Integer bookId, Integer count) {
+        if (bookId == null || count == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
 
 
-        Cart cart = cartMapper.selectCartByUserIdProductId(userId, productId);
+        Cart cart = cartMapper.selectCartByUserIdBookId(userId, bookId);
         if (cart == null) {
             //这个产品不在这个购物车里,需要新增一个这个产品的记录
             Cart cartItem = new Cart();
             cartItem.setQuantity(count);
             cartItem.setChecked(Const.Cart.CHECKED);
-            cartItem.setProductId(productId);
+            cartItem.setBookId(bookId);
             cartItem.setUserId(userId);
             cartMapper.insert(cartItem);
         } else {
@@ -51,11 +54,11 @@ public class CartServiceImpl implements ICartService {
         return this.list(userId);
     }
 
-    public ServerResponse<CartVO> update(Integer userId, Integer productId, Integer count) {
-        if (productId == null || count == null) {
+    public ServerResponse<CartVO> update(Integer userId, Integer bookId, Integer count) {
+        if (bookId == null || count == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        Cart cart = cartMapper.selectCartByUserIdProductId(userId, productId);
+        Cart cart = cartMapper.selectCartByUserIdBookId(userId, bookId);
         if (cart != null) {
             cart.setQuantity(count);
         }
@@ -63,87 +66,87 @@ public class CartServiceImpl implements ICartService {
         return this.list(userId);
     }
 
-    public ServerResponse<CartVO> deleteProduct(Integer userId, String productIds) {
-        List<String> productList = Splitter.on(",").splitToList(productIds);
-        if (CollectionUtils.isEmpty(productList)) {
+    public ServerResponse<CartVO> deleteBook(Integer userId, String bookIds) {
+        List<String> bookList = Splitter.on(",").splitToList(bookIds);
+        if (CollectionUtils.isEmpty(bookList)) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        cartMapper.deleteByUserIdProductIds(userId, productList);
+        cartMapper.deleteByUserIdBookIds(userId, bookList);
         return this.list(userId);
     }
 
 
     public ServerResponse<CartVO> list(Integer userId) {
-        CartVO cartVO = this.getCartVoLimit(userId);
+        CartVO cartVO = this.getCartVOLimit(userId);
         return ServerResponse.createBySuccess(cartVO);
     }
 
 
-    public ServerResponse<CartVO> selectOrUnSelect(Integer userId, Integer productId, Integer checked) {
-        cartMapper.checkedOrUncheckedProduct(userId, productId, checked);
+    public ServerResponse<CartVO> selectOrUnSelect(Integer userId, Integer bookId, Integer checked) {
+        cartMapper.checkedOrUncheckedBook(userId, bookId, checked);
         return this.list(userId);
     }
 
-    public ServerResponse<Integer> getCartProductCount(Integer userId) {
+    public ServerResponse<Integer> getCartBookCount(Integer userId) {
         if (userId == null) {
             return ServerResponse.createBySuccess(0);
         }
-        return ServerResponse.createBySuccess(cartMapper.selectCartProductCount(userId));
+        return ServerResponse.createBySuccess(cartMapper.selectCartBookCount(userId));
     }
 
 
-    private CartVO getCartVoLimit(Integer userId) {
+    private CartVO getCartVOLimit(Integer userId) {
         CartVO cartVO = new CartVO();
         List<Cart> cartList = cartMapper.selectCartByUserId(userId);
-        List<CartProductVO> cartProductVOList = Lists.newArrayList();
+        List<CartBookVO> cartBookVOList = Lists.newArrayList();
 
         BigDecimal cartTotalPrice = new BigDecimal("0");
 
         if (CollectionUtils.isNotEmpty(cartList)) {
             for (Cart cartItem : cartList) {
-                CartProductVO cartProductVO = new CartProductVO();
-                cartProductVO.setId(cartItem.getId());
-                cartProductVO.setUserId(userId);
-                cartProductVO.setProductId(cartItem.getProductId());
+                CartBookVO cartBookVO = new CartBookVO();
+                cartBookVO.setId(cartItem.getId());
+                cartBookVO.setUserId(userId);
+                cartBookVO.setBookId(cartItem.getBookId());
 
-                Product product = productMapper.selectByPrimaryKey(cartItem.getProductId());
-                if (product != null) {
-                    cartProductVO.setProductMainImage(product.getMainImage());
-                    cartProductVO.setProductName(product.getName());
-                    cartProductVO.setProductSubtitle(product.getSubtitle());
-                    cartProductVO.setProductStatus(product.getStatus());
-                    cartProductVO.setProductPrice(product.getPrice());
-                    cartProductVO.setProductStock(product.getStock());
+                Book book = bookMapper.selectByPrimaryKey(cartItem.getBookId());
+                if (book != null) {
+                    cartBookVO.setBookMainImage(book.getMainImage());
+                    cartBookVO.setBookName(book.getName());
+                    cartBookVO.setBookSubtitle(book.getSubtitle());
+                    cartBookVO.setBookStatus(book.getStatus());
+                    cartBookVO.setBookPrice(book.getPrice());
+                    cartBookVO.setBookStock(book.getStock());
                     //判断库存
                     int buyLimitCount = 0;
-                    if (product.getStock() >= cartItem.getQuantity()) {
+                    if (book.getStock() >= cartItem.getQuantity()) {
                         //库存充足的时候
                         buyLimitCount = cartItem.getQuantity();
-                        cartProductVO.setLimitQuantity(Const.Cart.LIMIT_NUM_SUCCESS);
+                        cartBookVO.setLimitQuantity(Const.Cart.LIMIT_NUM_SUCCESS);
                     } else {
-                        buyLimitCount = product.getStock();
-                        cartProductVO.setLimitQuantity(Const.Cart.LIMIT_NUM_FAIL);
+                        buyLimitCount = book.getStock();
+                        cartBookVO.setLimitQuantity(Const.Cart.LIMIT_NUM_FAIL);
                         //购物车中更新有效库存
                         Cart cartForQuantity = new Cart();
                         cartForQuantity.setId(cartItem.getId());
                         cartForQuantity.setQuantity(buyLimitCount);
                         cartMapper.updateByPrimaryKeySelective(cartForQuantity);
                     }
-                    cartProductVO.setQuantity(buyLimitCount);
+                    cartBookVO.setQuantity(buyLimitCount);
                     //计算总价
-                    cartProductVO.setProductTotalPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(), cartProductVO.getQuantity()));
-                    cartProductVO.setProductChecked(cartItem.getChecked());
+                    cartBookVO.setBookTotalPrice(BigDecimalUtil.mul(book.getPrice().doubleValue(), cartBookVO.getQuantity()));
+                    cartBookVO.setBookChecked(cartItem.getChecked());
                 }
 
                 if (cartItem.getChecked() == Const.Cart.CHECKED) {
                     //如果已经勾选,增加到整个的购物车总价中
-                    cartTotalPrice = BigDecimalUtil.add(cartTotalPrice.doubleValue(), cartProductVO.getProductTotalPrice().doubleValue());
+                    cartTotalPrice = BigDecimalUtil.add(cartTotalPrice.doubleValue(), cartBookVO.getBookTotalPrice().doubleValue());
                 }
-                cartProductVOList.add(cartProductVO);
+                cartBookVOList.add(cartBookVO);
             }
         }
         cartVO.setCartTotalPrice(cartTotalPrice);
-        cartVO.setCartProductVOList(cartProductVOList);
+        cartVO.setCartBookVOList(cartBookVOList);
         cartVO.setAllChecked(this.getAllCheckedStatus(userId));
         cartVO.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
 
@@ -154,7 +157,7 @@ public class CartServiceImpl implements ICartService {
         if (userId == null) {
             return false;
         }
-        return cartMapper.selectCartProductCheckedStatusByUserId(userId) == 0;
+        return cartMapper.selectCartBookCheckedStatusByUserId(userId) == 0;
 
     }
 
