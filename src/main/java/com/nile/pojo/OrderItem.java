@@ -1,5 +1,7 @@
 package com.nile.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -8,7 +10,7 @@ public class OrderItem {
 
     private Integer userId;
 
-    private Integer orderNo;
+    private Long orderNo;
 
     private Integer bookId;
 
@@ -26,7 +28,7 @@ public class OrderItem {
 
     private Date updateTime;
 
-    public OrderItem(Integer id, Integer userId, Integer orderNo, Integer bookId, String bookName, String bookImage, BigDecimal currentUnitPrice, Integer quantity, BigDecimal totalPrice, Date createTime, Date updateTime) {
+    public OrderItem(Integer id, Integer userId, Long orderNo, Integer bookId, String bookName, String bookImage, BigDecimal currentUnitPrice, Integer quantity, BigDecimal totalPrice, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.orderNo = orderNo;
@@ -60,11 +62,11 @@ public class OrderItem {
         this.userId = userId;
     }
 
-    public Integer getOrderNo() {
+    public Long getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(Integer orderNo) {
+    public void setOrderNo(Long orderNo) {
         this.orderNo = orderNo;
     }
 
@@ -130,5 +132,10 @@ public class OrderItem {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

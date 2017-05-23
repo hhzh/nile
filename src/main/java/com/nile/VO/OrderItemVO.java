@@ -23,7 +23,7 @@ public class OrderItemVO {
         return orderNo;
     }
 
-    public void setOrderNo(Long orderNo) {
+    public void setOrderNo(Long oraderNo) {
         this.orderNo = orderNo;
     }
 

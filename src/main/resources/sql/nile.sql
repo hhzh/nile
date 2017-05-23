@@ -82,7 +82,7 @@ CREATE TABLE book(
 DROP TABLE if EXISTS nile_order;
 CREATE TABLE nile_order (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单ID',
-  `order_no` int(20) DEFAULT NULL COMMENT '订单号',
+  `order_no` bigint(20) DEFAULT NULL COMMENT '订单号',
   `user_id` int(11) DEFAULT NULL COMMENT '用户id',
   `shipping_id` int(11) DEFAULT NULL COMMENT '收货地址id',
   `payment` decimal(20,2) DEFAULT NULL COMMENT '实际付款金额,单位是元,保留两位小数',
@@ -103,7 +103,7 @@ DROP TABLE IF EXISTS `order_item`;
 CREATE TABLE `order_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单子表id',
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
-  `order_no` int(20) DEFAULT NULL COMMENT '订单号',
+  `order_no` bigint(20) DEFAULT NULL COMMENT '订单号',
   `book_id` int(11) DEFAULT NULL COMMENT '图书id',
   `book_name` varchar(100) DEFAULT NULL COMMENT '图书名称',
   `book_image` varchar(500) DEFAULT NULL COMMENT '图书图片地址',

@@ -1,5 +1,7 @@
 package com.nile.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import java.util.Date;
 
 public class Publisher {
@@ -52,5 +54,10 @@ public class Publisher {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }
