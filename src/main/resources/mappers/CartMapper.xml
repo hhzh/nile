@@ -116,4 +116,57 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCartByUserIdBookId" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from cart
+    where user_id = #{userId}
+    and book_id = #{bookId}
+  </select>
+
+  <select id="selectCartByUserId" resultMap="BaseResultMap" parameterType="int">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from cart
+    where user_id = #{userId}
+  </select>
+
+  <select id="selectCartBookCheckedStatusByUserId" resultType="int" parameterType="int">
+    SELECT  count(1) from cart where checked = 0 and user_id = #{userId}
+  </select>
+
+  <delete id="deleteByUserIdBookIds" parameterType="map">
+    delete from cart
+    where user_id = #{userId}
+    <if test="bookIdList != null">
+      and book_id in
+      <foreach collection="bookIdList" item="item" index="index" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </delete>
+
+  <update id="checkedOrUncheckedBook" parameterType="map">
+    UPDATE  cart
+    set checked = #{checked},
+    update_time = now()
+    where user_id = #{userId}
+    <if test="bookId != null">
+      and book_id = #{bookId}
+    </if>
+  </update>
+
+  <select id="selectCartBookCount" parameterType="int" resultType="int">
+    select IFNULL(sum(quantity),0) as count from cart where user_id = #{userId}
+  </select>
+
+  <select id="selectCheckedCartByUserId" parameterType="int" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from cart
+    where user_id = #{userId}
+    and checked = 1
+  </select>
+  
 </mapper>

@@ -198,4 +198,43 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List"/>
+    from book
+    ORDER BY id asc
+  </select>
+
+
+  <select id="selectByNameAndBookId" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from book
+    <where>
+      <if test="bookName != null">
+        and name like #{bookName}
+      </if>
+      <if test="bookId != null">
+        and id = #{bookId}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByNameAndCategoryIds" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    from book
+    where status = 1
+    <if test="bookName != null">
+      and name like #{bookName}
+    </if>
+    <if test="categoryIdList != null" >
+      and category_id in
+      <foreach item="item" index="index" open="(" separator="," close=")" collection="categoryIdList">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
 </mapper>

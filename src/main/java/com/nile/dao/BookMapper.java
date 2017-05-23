@@ -1,6 +1,9 @@
 package com.nile.dao;
 
 import com.nile.pojo.Book;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface BookMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,10 @@ public interface BookMapper {
     int updateByPrimaryKeySelective(Book record);
 
     int updateByPrimaryKey(Book record);
+
+    List<Book> selectList();
+
+    List<Book> selectByNameAndBookId(@Param("bookName")String bookName, @Param("bookId") Integer bookId);
+
+    List<Book> selectByNameAndCategoryIds(@Param("bookName")String bookName,@Param("categoryIdList")List<Integer> categoryIdList);
 }
