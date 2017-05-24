@@ -1,5 +1,12 @@
 # nile
 nile-一个美好的网上书店
+_____
+本网站采用前后端分离，这是后端代码。
+采用的技术栈：
+Spring
+SpringMVC
+Mybatis
+MySQL
 
 
 1. 把项目克隆到本地
