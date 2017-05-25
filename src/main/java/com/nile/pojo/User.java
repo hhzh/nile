@@ -1,7 +1,5 @@
 package com.nile.pojo;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 import java.util.Date;
 
 public class User {
@@ -122,8 +120,5 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+
 }
