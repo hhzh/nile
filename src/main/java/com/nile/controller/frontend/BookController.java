@@ -19,13 +19,13 @@ public class BookController {
     private IBookService iBookService;
 
 
-    @RequestMapping("detail.do")
+    @RequestMapping("detail")
     @ResponseBody
     public ServerResponse<BookDetailVO> detail(Integer bookId) {
         return iBookService.getBookDetail(bookId);
     }
 
-    @RequestMapping("list.do")
+    @RequestMapping("list")
     @ResponseBody
     public ServerResponse<PageInfo> list(@RequestParam(value = "keyword", required = false) String keyword,
                                          @RequestParam(value = "categoryId", required = false) Integer categoryId,
