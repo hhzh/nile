@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BookController {
 
     @Autowired
-    private IBookService iBookService;
+    private IBookService bookService;
 
 
     @RequestMapping("detail")
     @ResponseBody
     public ServerResponse<BookDetailVO> detail(Integer bookId) {
-        return iBookService.getBookDetail(bookId);
+        return bookService.getBookDetail(bookId);
     }
 
     @RequestMapping("list")
@@ -32,7 +32,7 @@ public class BookController {
                                          @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                          @RequestParam(value = "orderBy", defaultValue = "") String orderBy) {
-        return iBookService.getBookByKeywordCategory(keyword, categoryId, pageNum, pageSize, orderBy);
+        return bookService.getBookByKeywordCategory(keyword, categoryId, pageNum, pageSize, orderBy);
     }
 
 
