@@ -1,9 +1,6 @@
 package com.nile.controller.frontend;
 
 
-import com.alipay.api.AlipayApiException;
-import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.demo.trade.config.Configs;
 import com.google.common.collect.Maps;
 import com.nile.common.Const;
 import com.nile.common.ResponseCode;
@@ -33,7 +30,7 @@ public class OrderController {
     private IOrderService iOrderService;
 
 
-    @RequestMapping("create.do")
+    @RequestMapping("create")
     @ResponseBody
     public ServerResponse create(HttpSession session, Integer shippingId) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -44,7 +41,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping("cancel.do")
+    @RequestMapping("cancel")
     @ResponseBody
     public ServerResponse cancel(HttpSession session, Long orderNo) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -55,7 +52,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping("get_order_cart_book.do")
+    @RequestMapping("get_order_cart_book")
     @ResponseBody
     public ServerResponse getOrderCartBook(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -66,7 +63,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping("detail.do")
+    @RequestMapping("detail")
     @ResponseBody
     public ServerResponse detail(HttpSession session, Long orderNo) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -76,7 +73,7 @@ public class OrderController {
         return iOrderService.getOrderDetail(user.getId(), orderNo);
     }
 
-    @RequestMapping("list.do")
+    @RequestMapping("list")
     @ResponseBody
     public ServerResponse list(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -87,7 +84,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping("pay.do")
+    @RequestMapping("pay")
     @ResponseBody
     public ServerResponse pay(HttpSession session, Long orderNo, HttpServletRequest request) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -98,7 +95,7 @@ public class OrderController {
         return iOrderService.pay(orderNo, user.getId(), path);
     }
 
-    @RequestMapping("alipay_callback.do")
+    @RequestMapping("alipay_callback")
     @ResponseBody
     public Object alipayCallback(HttpServletRequest request) {
         Map<String, String> params = Maps.newHashMap();
@@ -119,15 +116,15 @@ public class OrderController {
         //非常重要,验证回调的正确性,是不是支付宝发的.并且呢还要避免重复通知.
 
         params.remove("sign_type");
-        try {
-            boolean alipayRSACheckedV2 = AlipaySignature.rsaCheckV2(params, Configs.getAlipayPublicKey(), "utf-8", Configs.getSignType());
-
-            if (!alipayRSACheckedV2) {
-                return ServerResponse.createByErrorMessage("非法请求,验证不通过,再恶意请求我就报警找网警了");
-            }
-        } catch (AlipayApiException e) {
-            logger.error("支付宝验证回调异常", e);
-        }
+        //try {
+        //    boolean alipayRSACheckedV2 = AlipaySignature.rsaCheckV2(params, Configs.getAlipayPublicKey(), "utf-8", Configs.getSignType());
+        //
+        //    if (!alipayRSACheckedV2) {
+        //        return ServerResponse.createByErrorMessage("非法请求,验证不通过,再恶意请求我就报警找网警了");
+        //    }
+        //} catch (AlipayApiException e) {
+        //    logger.error("支付宝验证回调异常", e);
+        //}
 
         //todo 验证各种数据
 
@@ -141,7 +138,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping("query_order_pay_status.do")
+    @RequestMapping("query_order_pay_status")
     @ResponseBody
     public ServerResponse<Boolean> queryOrderPayStatus(HttpSession session, Long orderNo) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);

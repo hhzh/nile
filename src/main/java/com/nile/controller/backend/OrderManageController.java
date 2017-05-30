@@ -28,83 +28,75 @@ public class OrderManageController {
 
     @RequestMapping("list")
     @ResponseBody
-    public ServerResponse<PageInfo> orderList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                              @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
+    public ServerResponse<PageInfo> orderList(HttpSession session, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
 
         }
-        if(userService.checkAdminRole(user).isSuccess()){
+        if (userService.checkAdminRole(user).isSuccess()) {
             //填充我们增加产品的业务逻辑
-            return orderService.manageList(pageNum,pageSize);
-        }else{
+            return orderService.manageList(pageNum, pageSize);
+        } else {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
     }
 
     @RequestMapping("detail")
     @ResponseBody
-    public ServerResponse<OrderVO> orderDetail(HttpSession session, Long orderNo){
+    public ServerResponse<OrderVO> orderDetail(HttpSession session, Long orderNo) {
 
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
 
         }
-        if(userService.checkAdminRole(user).isSuccess()){
+        if (userService.checkAdminRole(user).isSuccess()) {
             //填充我们增加产品的业务逻辑
 
             return orderService.manageDetail(orderNo);
-        }else{
+        } else {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
     }
-
 
 
     @RequestMapping("search")
     @ResponseBody
-    public ServerResponse<PageInfo> orderSearch(HttpSession session, Long orderNo,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                               @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+    public ServerResponse<PageInfo> orderSearch(HttpSession session, Long orderNo, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
 
         }
-        if(userService.checkAdminRole(user).isSuccess()){
+        if (userService.checkAdminRole(user).isSuccess()) {
             //填充我们增加产品的业务逻辑
-            return orderService.manageSearch(orderNo,pageNum,pageSize);
-        }else{
+            return orderService.manageSearch(orderNo, pageNum, pageSize);
+        } else {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
     }
-
 
 
     @RequestMapping("send_goods")
     @ResponseBody
-    public ServerResponse<String> orderSendGoods(HttpSession session, Long orderNo){
+    public ServerResponse<String> orderSendGoods(HttpSession session, Long orderNo) {
 
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录,请登录管理员");
 
         }
-        if(userService.checkAdminRole(user).isSuccess()){
+        if (userService.checkAdminRole(user).isSuccess()) {
             //填充我们增加产品的业务逻辑
             return orderService.manageSendGoods(orderNo);
-        }else{
+        } else {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
     }
-
-
-
-
-
-
 
 
 }
