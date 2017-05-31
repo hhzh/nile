@@ -85,7 +85,8 @@ public class BookManageController {
 
     @RequestMapping("list")
     @ResponseBody
-    public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+    public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                  @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -101,7 +102,9 @@ public class BookManageController {
 
     @RequestMapping("search")
     @ResponseBody
-    public ServerResponse bookSearch(HttpSession session,String bookName,Integer bookId, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+    public ServerResponse bookSearch(HttpSession session,String bookName,Integer bookId,
+                                     @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                     @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -117,7 +120,9 @@ public class BookManageController {
 
     @RequestMapping("upload")
     @ResponseBody
-    public ServerResponse upload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request){
+    public ServerResponse upload(HttpSession session,
+                                 @RequestParam(value = "upload_file",required = false) MultipartFile file,
+                                 HttpServletRequest request){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -139,7 +144,9 @@ public class BookManageController {
 
     @RequestMapping("richtext_img_upload")
     @ResponseBody
-    public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
+    public Map richtextImgUpload(HttpSession session,
+                                 @RequestParam(value = "upload_file",required = false) MultipartFile file,
+                                 HttpServletRequest request, HttpServletResponse response){
         Map resultMap = Maps.newHashMap();
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user == null){
