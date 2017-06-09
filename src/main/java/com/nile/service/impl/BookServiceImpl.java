@@ -34,7 +34,7 @@ public class BookServiceImpl implements IBookService {
     private CategoryMapper categoryMapper;
 
     @Autowired
-    private ICategoryService iCategoryService;
+    private ICategoryService categoryService;
 
     public ServerResponse saveOrUpdateBook(Book book) {
         if (book != null) {
@@ -197,7 +197,7 @@ public class BookServiceImpl implements IBookService {
                 PageInfo pageInfo = new PageInfo(bookListVOList);
                 return ServerResponse.createBySuccess(pageInfo);
             }
-            categoryIdList = iCategoryService.selectCategoryAndChildrenById(category.getId()).getData();
+            categoryIdList = categoryService.selectCategoryAndChildrenById(category.getId()).getData();
         }
         if (StringUtils.isNotBlank(keyword)) {
             keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
