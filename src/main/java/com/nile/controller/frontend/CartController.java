@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 public class CartController {
 
     @Autowired
-    private ICartService iCartService;
+    private ICartService cartService;
 
 
     @RequestMapping("list")
@@ -28,7 +28,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.list(user.getId());
+        return cartService.list(user.getId());
     }
 
     @RequestMapping("add")
@@ -38,7 +38,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.add(user.getId(), bookId, count);
+        return cartService.add(user.getId(), bookId, count);
     }
 
 
@@ -49,7 +49,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.update(user.getId(), bookId, count);
+        return cartService.update(user.getId(), bookId, count);
     }
 
     @RequestMapping("delete_book")
@@ -59,7 +59,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.deleteBook(user.getId(), bookIds);
+        return cartService.deleteBook(user.getId(), bookIds);
     }
 
 
@@ -70,7 +70,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnSelect(user.getId(), null, Const.Cart.CHECKED);
+        return cartService.selectOrUnSelect(user.getId(), null, Const.Cart.CHECKED);
     }
 
     @RequestMapping("un_select_all")
@@ -80,7 +80,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnSelect(user.getId(), null, Const.Cart.UN_CHECKED);
+        return cartService.selectOrUnSelect(user.getId(), null, Const.Cart.UN_CHECKED);
     }
 
 
@@ -91,7 +91,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnSelect(user.getId(), bookId, Const.Cart.CHECKED);
+        return cartService.selectOrUnSelect(user.getId(), bookId, Const.Cart.CHECKED);
     }
 
     @RequestMapping("un_select")
@@ -101,7 +101,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnSelect(user.getId(), bookId, Const.Cart.UN_CHECKED);
+        return cartService.selectOrUnSelect(user.getId(), bookId, Const.Cart.UN_CHECKED);
     }
 
 
@@ -112,7 +112,7 @@ public class CartController {
         if (user == null) {
             return ServerResponse.createBySuccess(0);
         }
-        return iCartService.getCartBookCount(user.getId());
+        return cartService.getCartBookCount(user.getId());
     }
 
     //全选
