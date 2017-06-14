@@ -138,7 +138,6 @@ public class OrderController {
         return Const.AlipayCallback.RESPONSE_FAILED;
     }
 
-
     @RequestMapping("query_order_pay_status")
     @ResponseBody
     public ServerResponse<Boolean> queryOrderPayStatus(HttpSession session, Long orderNo) {
