@@ -34,7 +34,7 @@ public class FileServiceImpl implements IFileService {
         }
         File targetFile = new File(path, uploadFileName);
 
-        
+
         try {
             file.transferTo(targetFile);
             //文件已经上传成功了
