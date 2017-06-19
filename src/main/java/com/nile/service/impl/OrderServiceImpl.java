@@ -43,6 +43,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,7 +88,7 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private ShippingMapper shippingMapper;
 
-
+    @Transactional
     public ServerResponse createOrder(Integer userId, Integer shippingId) {
 
         //从购物车中获取数据
@@ -254,7 +255,6 @@ public class OrderServiceImpl implements IOrderService {
 
         //校验购物车的数据,包括产品的状态和数量
         for (Cart cartItem : cartList) {
-            OrderItem orderItem = new OrderItem();
             Book book = bookMapper.selectByPrimaryKey(cartItem.getBookId());
             if (Const.BookStatusEnum.ON_SALE.getCode() != book.getStatus()) {
                 return ServerResponse.createByErrorMessage("产品" + book.getName() + "不是在线售卖状态");
@@ -265,6 +265,7 @@ public class OrderServiceImpl implements IOrderService {
                 return ServerResponse.createByErrorMessage("产品" + book.getName() + "库存不足");
             }
 
+            OrderItem orderItem = new OrderItem();
             orderItem.setUserId(userId);
             orderItem.setBookId(book.getId());
             orderItem.setBookName(book.getName());

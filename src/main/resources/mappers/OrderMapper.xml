@@ -203,8 +203,8 @@
     SELECT
     <include refid="Base_Column_List"></include>
     from nile_order
-    where order_no = #{orderNo,jdbcType=BIGINT,javaType=java.lang.Long}
-    and user_id = #{userId,jdbcType=INTEGER,javaType=java.lang.Integer}
+    where order_no = #{orderNo, jdbcType=BIGINT, javaType=java.lang.Long}
+    and user_id = #{userId, jdbcType=INTEGER, javaType=java.lang.Integer}
   </select>
 
   <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="long">
