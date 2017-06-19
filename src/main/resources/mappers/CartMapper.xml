@@ -26,12 +26,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.nile.pojo.Cart" >
-    insert into cart (id, user_id, book_id, 
+    insert into cart (user_id, book_id,
       quantity, checked, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, 
+    values (#{userId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER},
       #{quantity,jdbcType=INTEGER}, #{checked,jdbcType=INTEGER}, now(),
-      now()
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.nile.pojo.Cart" >
     insert into cart

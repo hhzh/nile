@@ -118,21 +118,20 @@ public class CartServiceImpl implements ICartService {
                     cartBookVO.setBookPrice(book.getPrice());
                     cartBookVO.setBookStock(book.getStock());
                     //判断库存
-                    int buyLimitCount = 0;
                     if (book.getStock() >= cartItem.getQuantity()) {
                         //库存充足的时候
-                        buyLimitCount = cartItem.getQuantity();
+                        cartBookVO.setQuantity(cartItem.getQuantity());
                         cartBookVO.setLimitQuantity(Const.Cart.LIMIT_NUM_SUCCESS);
                     } else {
-                        buyLimitCount = book.getStock();
+                        cartBookVO.setQuantity(book.getStock());
                         cartBookVO.setLimitQuantity(Const.Cart.LIMIT_NUM_FAIL);
                         //购物车中更新有效库存
                         Cart cartForQuantity = new Cart();
                         cartForQuantity.setId(cartItem.getId());
-                        cartForQuantity.setQuantity(buyLimitCount);
+                        cartForQuantity.setQuantity(book.getStock());
                         cartMapper.updateByPrimaryKeySelective(cartForQuantity);
                     }
-                    cartBookVO.setQuantity(buyLimitCount);
+
                     //计算总价
                     cartBookVO.setBookTotalPrice(BigDecimalUtil.mul(book.getPrice().doubleValue(), cartBookVO.getQuantity()));
                     cartBookVO.setBookChecked(cartItem.getChecked());
