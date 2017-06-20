@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.nile.pojo.Order" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="order_no" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="order_no" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="shipping_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="payment" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
@@ -203,8 +203,8 @@
     SELECT
     <include refid="Base_Column_List"></include>
     from nile_order
-    where order_no = #{orderNo, jdbcType=BIGINT, javaType=java.lang.Long}
-    and user_id = #{userId, jdbcType=INTEGER, javaType=java.lang.Integer}
+    where order_no = #{orderNo}
+    and user_id = #{userId}
   </select>
 
   <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="long">

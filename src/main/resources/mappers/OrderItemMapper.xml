@@ -5,7 +5,7 @@
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="order_no" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="order_no" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="book_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="book_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="book_image" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -168,8 +168,8 @@
     SELECT
     <include refid="Base_Column_List"/>
     from order_item
-    where order_no = #{orderNo,jdbcType=BIGINT,javaType=java.lang.Long}
-    and user_id = #{userId,jdbcType=INTEGER,javaType=java.lang.Integer}
+    where order_no = #{orderNo}
+    and user_id = #{userId}
   </select>
 
   <select id="getByOrderNo" parameterType="map" resultMap="BaseResultMap">
