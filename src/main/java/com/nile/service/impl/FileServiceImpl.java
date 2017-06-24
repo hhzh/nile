@@ -33,8 +33,7 @@ public class FileServiceImpl implements IFileService {
             fileDir.mkdirs();
         }
         File targetFile = new File(path, uploadFileName);
-
-
+        
         try {
             file.transferTo(targetFile);
             //文件已经上传成功了
