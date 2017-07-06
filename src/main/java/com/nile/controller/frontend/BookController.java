@@ -18,7 +18,6 @@ public class BookController {
     @Autowired
     private IBookService bookService;
 
-
     @RequestMapping("detail")
     @ResponseBody
     public ServerResponse<BookDetailVO> detail(Integer bookId) {
